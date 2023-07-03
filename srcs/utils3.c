@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:23:00 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/03 17:40:13 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/03 21:23:38 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	mini_tablen(char **tab)
 
 char	*mini_without_quote(char *str)
 {
-	char	quote;
+	static char	quote = '\0';
 	int		i;
 	int		cpt;
 	char	*tmp;
@@ -32,7 +32,6 @@ char	*mini_without_quote(char *str)
 
 	i = 0;
 	j = 0;
-	quote = '\0';
 	cpt = 0;
 	while (str[i])
 	{
@@ -45,12 +44,14 @@ char	*mini_without_quote(char *str)
 		i++;
 	}
 	if (quote)
+	{
+		quote = '\0';
 		return (NULL);
+	}
 	tmp = (char *)malloc(sizeof(char) * (cpt + 1));
 	if (!tmp)
 		return (NULL);
 	i = 0;
-	quote = '\0';
 	while (str[i])
 	{
 		if (!quote && (str[i] == '\"' || str[i] == '\''))
@@ -64,12 +65,20 @@ char	*mini_without_quote(char *str)
 	tmp[j] = '\0';
 	return (tmp);
 }
-
+/* A FAIRE : */
+/* */
+/* - pour compter le nombre de case faire cpt++; et et quand je trouve un " ou ' ne pas faire cpt++ jusqu au prochain */
+/* /!\ Se stop a chaque fois que tu trouves un separateur (hors espace) /!\ */
+/* /!\ Ne pas recopier si je trouve pas les " ou ' fermantes /!\ */
+/* */
+/* - pour recopier addtionner les cases en comptant espace entre chaque */
 int	remove_encapsuled(t_miniJoker *mini)
 {
 	int i;
 	char	**tmp;
 
+	if (!is_encapsuled(mini->tokens))
+		
 	tmp = (char **)malloc(sizeof(char *) * (mini_tablen(mini->tokens) + 1));
 	i = 0;
 	while (mini->tokens[i])
