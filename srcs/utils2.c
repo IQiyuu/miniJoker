@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:47:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/06/30 15:48:14 by romartin         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:33:10 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-void    freetab(char **tab)
-{
-    int i;
-
-    i = 0;
-    while (tab[i])
-        free(tab[i++]);
-    free(tab);
-}
 
 char    *ft_ministrdup(char *str, char **charset, int *i)
 {

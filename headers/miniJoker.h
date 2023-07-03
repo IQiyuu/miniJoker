@@ -18,13 +18,14 @@
     #  define EXIT_FAILLURE 1
     # endif
 	#ifndef PROMPT
-	# define PROMPT "\n"
+	# define PROMPT "\x1b[30mmini\x1b[31mJoker\x1b[0m> "
 	#endif
 
     typedef struct  s_miniJoker {
         char    **env_copy;
         char    *sep[7];
         char    **tokens;
+        int     index;
     } t_miniJoker;
 
     void    listen(t_miniJoker *mini);
@@ -50,5 +51,6 @@
     void    exec_loop(char *str, t_miniJoker *mini);
     int     ft_env(t_miniJoker *mini);
     int     is_ft_func(t_miniJoker *mini, int i);
+    int     remove_encapsuled(t_miniJoker *mini);
 
 #endif

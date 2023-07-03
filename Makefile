@@ -10,16 +10,15 @@ FILES = listener \
 		exec \
 		ft_exec \
 		ft_echo \
-		ft_pwd \
-		ft_cd \
-		ft_env
+		ft_env \
+		utils3
 
 SRC = $(foreach f, $(FILES), srcs/$(f).c)
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Iheaders -I/Users/romartin/.brew/opt/readline/include/ -fsanitize=address -g -Werror -Wextra -Wall
+CFLAGS = -Iheaders -I/Users/dgoubin/.brew/opt/readline/include/ -fsanitize=address -g -Werror -Wextra -Wall
 
-GFLAGS += -Iheaders -lreadline -I/Users/romartin/.brew/opt/readline/include/readline/ -L/Users/romartin/.brew/opt/readline/lib -fsanitize=address -g -Werror -Wextra -Wall
+GFLAGS += -Iheaders -lreadline -I/Users/dgoubin/.brew/opt/readline/include/readline/ -L/Users/dgoubin/.brew/opt/readline/lib -fsanitize=address -g -Werror -Wextra -Wall
 
 all: $(NAME)
 r: re

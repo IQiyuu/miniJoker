@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:23:12 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/06/30 17:59:00 by romartin         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:49:16 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
+/* (WIP) FONCTION QUI VERIFIE SI LA CHAINE DEMANDE EST UN BUILTIN */
+/* */
+/* prend en argument t_miniJoker qui a le tableau des tokens */
+/* prend en argument un int qui correspond a l index de la chaine cherche */
+/* */
+/* renvoie 1 si la fonction est un builtin 0 sinon */
 int is_ft_func(t_miniJoker *mini, int i)
 {
 	if (ft_strcmp(mini->tokens[i], "echo", 0) == 0)
@@ -29,6 +35,11 @@ int is_ft_func(t_miniJoker *mini, int i)
 	return (0);
 }
 
+/* (WIP) FONCTION QUI EXECUTE LES FONCTIONS BUILTIN */
+/* */
+/* prend en arguments les tokens /!\ CA NE GERE QUE LA PREMIERE COMMANDE /!\ */
+/* */
+/* renvoie -1 si aucune commande n'est execute */
 int	exec_ft(t_miniJoker *mini)
 {
 	int	error;
@@ -36,11 +47,5 @@ int	exec_ft(t_miniJoker *mini)
 	error = 1;
 	if (ft_strcmp(mini->tokens[0], "echo", 0) == 0)
 		error = ft_echo(mini);
-	if (ft_strcmp(mini->tokens[0], "pwd", 0) == 0)
-		error = ft_pwd();
-	if (ft_strcmp(mini->tokens[0], "cd", 0) == 0)
-		error = ft_cd(mini);
-	if (ft_strcmp(mini->tokens[0], "env", 0) == 0)
-		error = ft_env(mini);
 	return (error);
 }

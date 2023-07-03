@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:43:06 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/06/30 17:49:14 by romartin         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:56:57 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,12 @@ int ft_echo(t_miniJoker *mini)
 
         if (mini->tokens[i][0] == '$')
         {
-          if (getenv(&mini->tokens[i][1]) != NULL)
-            printf("%s", getenv(&mini->tokens[i][1]));
+          if (getEnv(mini, &mini->tokens[i][1]) != NULL)
+            printf("%s", getEnv(mini, &mini->tokens[i][1]));
         }
         else if (!is_intab(mini->sep, mini->tokens[i]) && ft_strcmp(mini->tokens[i], "-n", 0) != 0)
             {
-                while (mini->tokens[i][j])
-                {
-                    if (mini->tokens[i][j] != '"')
-                         printf("%c", mini->tokens[i][j]);
-                    j++;
-                }
+                printf("%s", mini->tokens[i]);
                 if (mini->tokens[i + 1])
                    printf(" ");
             }
