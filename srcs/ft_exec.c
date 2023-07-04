@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:23:12 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/03 17:49:16 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 01:56:01 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,9 @@ int	exec_ft(t_miniJoker *mini)
 	error = 1;
 	if (ft_strcmp(mini->tokens[0], "echo", 0) == 0)
 		error = ft_echo(mini);
+	if (ft_strcmp(mini->tokens[0], "cd", 0) == 0)
+		error = mini_cd(mini);
+	if (ft_strcmp(mini->tokens[0], "env", 0) == 0)
+		error = ft_env(mini);
 	return (error);
 }

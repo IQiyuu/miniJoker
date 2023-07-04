@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:43:06 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/03 17:56:57 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 01:41:42 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int ft_echo(t_miniJoker *mini)
     int j;
 
     i = 1;
+    j = 0;
     while (mini->tokens[i])
     {
         j = 0;

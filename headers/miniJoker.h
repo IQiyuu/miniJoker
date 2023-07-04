@@ -20,6 +20,9 @@
 	#ifndef PROMPT
 	# define PROMPT "\x1b[30mmini\x1b[31mJoker\x1b[0m> "
 	#endif
+    #ifndef BUFFER_SIZE
+    # define BUFFER_SIZE 1024
+    #endif
 
     typedef struct  s_miniJoker {
         char    **env_copy;
@@ -52,5 +55,6 @@
     int     ft_env(t_miniJoker *mini);
     int     is_ft_func(t_miniJoker *mini, int i);
     int     remove_encapsuled(t_miniJoker *mini);
+    int     mini_cd(t_miniJoker *mini);
 
 #endif

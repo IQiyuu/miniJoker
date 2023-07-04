@@ -11,12 +11,13 @@ FILES = listener \
 		ft_exec \
 		ft_echo \
 		ft_env \
-		utils3
+		utils3 \
+		mini_cd
 
 SRC = $(foreach f, $(FILES), srcs/$(f).c)
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Iheaders -I/Users/dgoubin/.brew/opt/readline/include/ -fsanitize=address -g -Werror -Wextra -Wall
+CFLAGS = -Iheaders -I/Users/dgoubin/.brew/opt/readline/include/ -fsanitize=address -g
 
 GFLAGS += -Iheaders -lreadline -I/Users/dgoubin/.brew/opt/readline/include/readline/ -L/Users/dgoubin/.brew/opt/readline/lib -fsanitize=address -g -Werror -Wextra -Wall
 

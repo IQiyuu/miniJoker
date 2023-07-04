@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   listener.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:23:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/03 21:05:38 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 01:55:35 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void    listen(t_miniJoker *mini)
 {
     char    *str;
     int     error;
+    char    buff[BUFFER_SIZE];
 
     while (1)
     {
