@@ -1,5 +1,5 @@
 malloc:
-    - env_copy dans t_miniJoker 
+    - env_copy dans t_minijoker 
     - historique
     - minisplit
     - ft_ministrdup
@@ -9,5 +9,5 @@ echo:
     echo oui "non" => oui non
     echo "oui non" => oui non
     echo oui -n => oui -n
-    echo "oui" -n => ouiminiJoker>
+    echo "oui" -n => ouiminijoker>
     echo oui            non => oui non

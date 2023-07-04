@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:02:30 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 11:02:37 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:53:25 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	mini_charfind(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])

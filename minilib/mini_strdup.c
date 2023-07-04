@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:01:16 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 11:42:51 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:50:40 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ char	*mini_strdup(char *s1)
 	char	*res;
 	int		i;
 
-	if(!s1)
+	if (!s1)
 		return (NULL);
 	cpt = mini_strlen(s1);
 	res = (char *)malloc(sizeof(char) * (cpt + 1));
-	if(!res)
+	if (!res)
 		return (NULL);
 	i = -1;
 	while (s1[++i])

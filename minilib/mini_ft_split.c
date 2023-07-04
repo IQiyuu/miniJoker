@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:18:40 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 11:19:11 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:53:03 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static char	*get_next_word(int *index, char *str, char c)
 
 	i = 0;
 	len = 0;
-
 	while (str[*index] == c)
 		(*index)++;
 	while (!(str[*index + len] == c) && str[*index + len])

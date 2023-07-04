@@ -1,4 +1,4 @@
-NAME = miniJoker
+NAME = minijoker
 
 LIB = minilib.a
 
@@ -26,7 +26,7 @@ GFLAGS = -Iheaders $(LIB) -lreadline -I/Users/dgoubin/.brew/opt/readline/include
 
 all: $(NAME)
 r: re
-	./miniJoker
+	./minijoker
 
 $(NAME): $(LIB) $(OBJ)
 	@printf "> \x1b[32mAll objects compiled\x1b[0m\n"

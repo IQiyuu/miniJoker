@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:23:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 12:13:59 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:49:30 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 /* FONCTION BOUCLE INFINI QUI LIT LES INPUT DE L'UTILISATEUR */
 /* */
-/* prend en argument t_miniJoker */
+/* prend en argument t_minijoker */
 /* */
 /* renvoie rien */
-void    listen(t_miniJoker *mini)
+void	listen(t_minijoker *mini)
 {
-    char    *str;
-    int     error;
-    char    buff[BUFFER_SIZE];
+	char	*str;
+	int		error;
 
-    while (1)
-    {
-        str = readline(PROMPT);
-        mini->index = 0;
-        error = parser(mini, str);
-        if (error == 1)
-            exit_miniJoker(mini, str);
-        if (!error)
-            exec_loop(str, mini);
-        add_history(str);
-        //apply_redirection(mini);
-        free(str);
-        mini_freetab(mini->tokens);
-    }
+	while (1)
+	{
+		str = readline(PROMPT);
+		mini->index = 0;
+		error = parser(mini, str);
+		if (error == 1)
+			exit_minijoker(mini, str);
+		if (!error)
+			exec_loop(str, mini);
+		add_history(str);
+		//apply_redirection(mini);
+		free(str);
+		mini_freetab(mini->tokens);
+	}
 }

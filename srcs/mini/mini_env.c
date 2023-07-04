@@ -6,28 +6,29 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:35:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/04 11:49:00 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-char    *getEnv(t_miniJoker *mini, char *str)
+char	*get_env(t_minijoker *mini, char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (mini->env_copy[i])
-    {
-        if (mini_lrstrcmp(mini->env_copy[i++], str) == 0)
-            return (&mini->env_copy[i - 1][mini_charfind(mini->env_copy[i - 1], '=') + 1]);
-    }
-    return (NULL);
+	i = 0;
+	while (mini->env_copy[i])
+	{
+		if (mini_lrstrcmp(mini->env_copy[i++], str) == 0)
+			return (&mini->env_copy[i - 1]
+				[mini_charfind(mini->env_copy[i - 1], '=') + 1]);
+	}
+	return (NULL);
 }
 
-int mini_env(t_miniJoker *mini)
+int	mini_env(t_minijoker *mini)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (mini->env_copy[i])

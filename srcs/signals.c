@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:46:01 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 10:59:48 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	sigint(int code)
 {
 	(void)code;
 	write(1, "\n", 1);
-    rl_on_new_line();
+	rl_on_new_line();
 	rl_replace_line("", 0);
-    rl_redisplay();
+	rl_redisplay();
 	return ;
 }

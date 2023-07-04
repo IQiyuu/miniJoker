@@ -6,28 +6,18 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 17:41:59 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/04 12:10:35 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-/*
-PAS FINI
-*/
-int mini_unset(t_miniJoker *mini)
+static char	**copy_tab(t_minijoker *mini, int i)
 {
-	char **new_env;
-	char **inputs;
-	char *var;
-	int i;
+	char	**new_env;
+	char	*var;
 
-	i = 0;
-	if (!mini->tokens[1])
-		return (EXIT_SUCCESS);
-	inputs = mini_ft_split(mini->tokens[1], '='); //malloc
-	i = mini_tablen(mini->env_copy);
-	new_env = (char **)malloc(sizeof(char *) * (i + 1)); //malloc
+	new_env = (char **)malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (mini->env_copy[i])
 	{
@@ -39,17 +29,32 @@ int mini_unset(t_miniJoker *mini)
 			{
 				printf("malloc faillure\n");
 				mini_freetab(new_env);
-				return (EXIT_SUCCESS);
+				return (NULL);
 			}
 		}
 		free(var);
 		i++;
 	}
-	if (getEnv(mini, inputs[0]) != NULL)
+	if (get_env(mini, mini->tokens[1]) != NULL)
 		i--;
 	new_env[i] = NULL;
+	return (new_env);
+}
+
+/* PAS FINI */
+int	mini_unset(t_minijoker *mini)
+{
+	char	**new_env;
+	int		i;
+
+	i = 0;
+	if (!mini->tokens[1])
+		return (EXIT_SUCCESS);
+	i = mini_tablen(mini->env_copy);
+	if (get_env(mini, mini->tokens[1]) != NULL)
+		i--;
+	new_env = copy_tab(mini, i);
 	mini_freetab(mini->env_copy);
 	mini->env_copy = new_env;
-	mini_freetab(inputs);
 	return (EXIT_SUCCESS);
 }

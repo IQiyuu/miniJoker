@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:23:12 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/04 12:13:36 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 /* (WIP) FONCTION QUI VERIFIE SI LA CHAINE DEMANDE EST UN BUILTIN */
 /* */
-/* prend en argument t_miniJoker qui a le tableau des tokens */
+/* prend en argument t_minijoker qui a le tableau des tokens */
 /* prend en argument un int qui correspond a l index de la chaine cherche */
 /* */
 /* renvoie 1 si la fonction est un builtin 0 sinon */
-int is_ft_func(t_miniJoker *mini, int i)
+int	is_mini_func(t_minijoker *mini, int i)
 {
-	if (ft_strcmp(mini->tokens[i], "echo", 0) == 0)
+	if (mini_strcmp(mini->tokens[i], "echo", 0) == 0)
 		return (1);
-	if (ft_strcmp(mini->tokens[i], "cd", 0) == 0)
+	if (mini_strcmp(mini->tokens[i], "cd", 0) == 0)
 		return (1);
-	if (ft_strcmp(mini->tokens[i], "pwd", 0) == 0)
+	if (mini_strcmp(mini->tokens[i], "pwd", 0) == 0)
 		return (1);
-	if (ft_strcmp(mini->tokens[i], "env", 0) == 0)
+	if (mini_strcmp(mini->tokens[i], "env", 0) == 0)
 		return (1);
-	if (ft_strcmp(mini->tokens[i], "export", 0) == 0)
+	if (mini_strcmp(mini->tokens[i], "export", 0) == 0)
 		return (1);
-	if (ft_strcmp(mini->tokens[i], "unset", 0) == 0)
+	if (mini_strcmp(mini->tokens[i], "unset", 0) == 0)
 		return (1);
 	return (0);
 }
@@ -40,7 +40,7 @@ int is_ft_func(t_miniJoker *mini, int i)
 /* prend en arguments les tokens /!\ CA NE GERE QUE LA PREMIERE COMMANDE /!\ */
 /* */
 /* renvoie -1 si aucune commande n'est execute */
-int	exec_ft(t_miniJoker *mini)
+int	mini_exec(t_minijoker *mini)
 {
 	int	error;
 

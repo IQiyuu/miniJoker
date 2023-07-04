@@ -6,10 +6,11 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:23:00 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 12:14:18 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* /!\ W.I.P /!\ */
 #include "miniJoker.h"
 
 int	mini_tablen(char **tab)
@@ -72,31 +73,31 @@ char	*mini_without_quote(char *str)
 /* /!\ Ne pas recopier si je trouve pas les " ou ' fermantes /!\ */
 /* */
 /* - pour recopier addtionner les cases en comptant espace entre chaque */
-int	remove_encapsuled(t_miniJoker *mini)
+int	remove_encapsuled(t_minijoker *mini)
 {
 	int i;
 	char	**tmp;
 
-	if (!is_encapsuled(mini->tokens))
+	//if (!is_encapsuled(mini->tokens))
 		
 	tmp = (char **)malloc(sizeof(char *) * (mini_tablen(mini->tokens) + 1));
 	i = 0;
 	while (mini->tokens[i])
 	{
-		if (ft_charfind(mini->tokens[i], '\'') != (int)ft_strlen(mini->tokens[i]) ||
-			ft_charfind(mini->tokens[i], '\"') != (int)ft_strlen(mini->tokens[i]))
+		if (mini_charfind(mini->tokens[i], '\'') != (int)mini_strlen(mini->tokens[i]) ||
+			mini_charfind(mini->tokens[i], '\"') != (int)mini_strlen(mini->tokens[i]))
 			tmp[i] = mini_without_quote(mini->tokens[i]);
 		else
-			tmp[i] = ft_strdup(mini->tokens[i]);
+			tmp[i] = mini_strdup(mini->tokens[i]);
 		if (!tmp[i])
 		{
-			freetab(tmp);
+			mini_freetab(tmp);
 			return (EXIT_FAILLURE);
 		}
 		i++;
 	}
 	tmp[i] = NULL;
-	freetab(mini->tokens);
+	mini_freetab(mini->tokens);
 	mini->tokens = tmp;
 	return (EXIT_SUCCESS);
 }
