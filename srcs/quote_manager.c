@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils3.c                                           :+:      :+:    :+:   */
+/*   quote_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:23:00 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 02:03:00 by iqiyu            ###   ########.fr       */
+/*   Updated: 2023/07/04 12:14:18 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	remove_encapsuled(t_miniJoker *mini)
 	int i;
 	char	**tmp;
 
+	if (!is_encapsuled(mini->tokens))
 		
 	tmp = (char **)malloc(sizeof(char *) * (mini_tablen(mini->tokens) + 1));
 	i = 0;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   mini_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:53:42 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/04 02:02:40 by iqiyu            ###   ########.fr       */
+/*   Updated: 2023/07/04 12:14:27 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void    freetab(char **tab)
     i = 0;
     while (tab[i])
         free(tab[i++]);
-    free(tab);
 }
 
 /* FONCTION QUI FREE ET TERMINE LE PROGRAMME */
@@ -38,6 +37,7 @@ void    freetab(char **tab)
 void    exit_miniJoker(t_miniJoker *mini, char *str)
 {
     freetab(mini->env_copy);
+    free(mini->env_copy);
     if (mini->tokens)
         freetab(mini->tokens);
     free(str);

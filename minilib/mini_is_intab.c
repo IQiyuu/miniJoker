@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   mini_is_intab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/23 20:21:06 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/06/30 14:11:28 by romartin         ###   ########.fr       */
+/*   Created: 2023/07/04 11:04:17 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/04 11:05:18 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniJoker.h"
+#include "minilib.h"
 
-char    *getEnv(t_miniJoker *mini, char *str)
+int mini_is_intab(char **tab, char *str)
 {
     int i;
 
     i = 0;
-    while (mini->env_copy[i])
+    while (tab[i])
     {
-        if (ft_lrstrcmp(mini->env_copy[i++], str) == 0)
-            return (&mini->env_copy[i - 1][ft_charfind(mini->env_copy[i - 1], '=') + 1]);
+        if (mini_strcmp(tab[i], str, 1) == 0)
+            return (1);
+        i++;
     }
-    return (NULL);
+    return (0);
 }

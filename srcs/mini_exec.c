@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*   mini_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:23:12 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/04 01:56:01 by iqiyu            ###   ########.fr       */
+/*   Updated: 2023/07/04 12:13:36 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,15 @@ int	exec_ft(t_miniJoker *mini)
 	int	error;
 
 	error = 1;
-	if (ft_strcmp(mini->tokens[0], "echo", 0) == 0)
-		error = ft_echo(mini);
-	if (ft_strcmp(mini->tokens[0], "cd", 0) == 0)
+	if (mini_strcmp(mini->tokens[0], "echo", 0) == 0)
+		error = mini_echo(mini);
+	if (mini_strcmp(mini->tokens[0], "cd", 0) == 0)
 		error = mini_cd(mini);
-	if (ft_strcmp(mini->tokens[0], "env", 0) == 0)
-		error = ft_env(mini);
+	if (mini_strcmp(mini->tokens[0], "unset", 0) == 0)
+		error = mini_unset(mini);
+	if (mini_strcmp(mini->tokens[0], "export", 0) == 0)
+		error = mini_export(mini);
+	if (mini_strcmp(mini->tokens[0], "env", 0) == 0)
+		error = mini_env(mini);
 	return (error);
 }

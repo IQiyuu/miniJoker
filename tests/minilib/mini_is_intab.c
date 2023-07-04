@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   mini_is_intab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 15:46:01 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 10:59:48 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/04 11:04:17 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/04 11:05:18 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniJoker.h"
+#include "minilib.h"
 
-void	sigint(int code)
+int mini_is_intab(char **tab, char *str)
 {
-	(void)code;
-	write(1, "\n", 1);
-    rl_on_new_line();
-	rl_replace_line("", 0);
-    rl_redisplay();
-	return ;
+    int i;
+
+    i = 0;
+    while (tab[i])
+    {
+        if (mini_strcmp(tab[i], str, 1) == 0)
+            return (1);
+        i++;
+    }
+    return (0);
 }

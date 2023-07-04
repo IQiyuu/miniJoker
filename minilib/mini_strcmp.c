@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   mini_strcmp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 17:35:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/06/30 17:56:14 by romartin         ###   ########.fr       */
+/*   Created: 2023/07/04 11:01:40 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/04 11:01:48 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniJoker.h"
+#include "minilib.h"
 
-int ft_env(t_miniJoker *mini)
+int	mini_strcmp(char *s1, char *s2, int ended)
 {
-	int i;
+	int	i;
 
-	i = 0;
-	while (mini->env_copy[i])
-	{
-		printf("%s\n", mini->env_copy[i]);
-		i++;
-	}
-	return (EXIT_SUCCESS);
+	if (!s1)
+		return (-1);
+	i = -1;
+	while (s1[++i] && s2[i])
+		if (s1[i] != s2[i])
+			break ;
+	if (ended && s1[i] == '\0')
+		return (0);
+	return (s1[i] - s2[i]);
 }

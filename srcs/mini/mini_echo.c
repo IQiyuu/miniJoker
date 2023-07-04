@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   mini_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,7 +17,7 @@
  prend mini en argument pour les token
  renvoie 1 si elle réussi
  */
-int ft_echo(t_miniJoker *mini)
+int mini_echo(t_miniJoker *mini)
 {
     int i;
     int j;
@@ -33,7 +33,7 @@ int ft_echo(t_miniJoker *mini)
           if (getEnv(mini, &mini->tokens[i][1]) != NULL)
             printf("%s", getEnv(mini, &mini->tokens[i][1]));
         }
-        else if (!is_intab(mini->sep, mini->tokens[i]) && ft_strcmp(mini->tokens[i], "-n", 0) != 0)
+        else if (!mini_is_intab(mini->sep, mini->tokens[i]) && mini_strcmp(mini->tokens[i], "-n", 0) != 0)
             {
                 printf("%s", mini->tokens[i]);
                 if (mini->tokens[i + 1])
@@ -41,7 +41,7 @@ int ft_echo(t_miniJoker *mini)
             }
         i++;
     }
-    if (ft_strcmp(mini->tokens[1], "-n", 0) != 0)
+    if (mini_strcmp(mini->tokens[1], "-n", 0) != 0)
         printf("\n");
     return (EXIT_SUCCESS);
 }

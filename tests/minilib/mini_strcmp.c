@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   mini_strcmp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 15:46:01 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 10:59:48 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/04 11:01:40 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/04 11:01:48 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniJoker.h"
+#include "minilib.h"
 
-void	sigint(int code)
+int	mini_strcmp(char *s1, char *s2, int ended)
 {
-	(void)code;
-	write(1, "\n", 1);
-    rl_on_new_line();
-	rl_replace_line("", 0);
-    rl_redisplay();
-	return ;
+	int	i;
+
+	if (!s1)
+		return (-1);
+	i = -1;
+	while (s1[++i] && s2[i])
+		if (s1[i] != s2[i])
+			break ;
+	if (ended && s1[i] == '\0')
+		return (0);
+	return (s1[i] - s2[i]);
 }
