@@ -45,6 +45,7 @@ clean:
 	@make -C minilib clean
 	@printf ">  \x1b[31mAll minilib objects cleaned\x1b[0m\n"
 	@rm -rf $(OBJ)
+	@rm -rf miniJoker.dSYM
 	@printf "> \x1b[31mAll objects cleaned\x1b[0m\n"
 
 fclean: clean
