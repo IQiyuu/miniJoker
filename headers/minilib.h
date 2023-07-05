@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:23:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 12:24:13 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/05 13:16:51 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int		mini_is_intab(char **tab, char *str);
 char	*mini_cut_to(char *str, char c);
 int		mini_charfind(char *str, char c);
 void	mini_freetab(char **tab);
+int		mini_strcpy(char *src, char *dst);
 
 #endif

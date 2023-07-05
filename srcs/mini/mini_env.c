@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:35:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 15:57:44 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ int	mini_env(t_minijoker *mini)
 		printf("%s\n", mini->env_copy[i]);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

@@ -11,7 +11,8 @@ FILES = mini_charfind \
 	mini_strjoin \
 	mini_strlen \
 	mini_tablen \
-	mini_freetab
+	mini_freetab \
+	mini_strcpy
 
 S = $(foreach f, $(FILES), $(f).c)
 OBJ = $(S:.c=.o)

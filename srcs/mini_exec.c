@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:23:12 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:42:02 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	mini_exec(t_minijoker *mini)
 {
 	int	error;
 
-	error = 1;
+	error = UNKNOW_COMMAND;
 	if (mini_strcmp(mini->tokens[0], "echo", 0) == 0)
 		error = mini_echo(mini);
 	if (mini_strcmp(mini->tokens[0], "cd", 0) == 0)

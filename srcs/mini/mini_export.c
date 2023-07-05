@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:24:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:35:16 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,15 @@ int	mini_export(t_minijoker *mini)
 	if (!mini->tokens[1])
 	{
 		mini_env(mini);
-		return (EXIT_SUCCESS);
+		return (SUCCESS);
 	}
 	str = mini_ft_split(mini->tokens[1], '=');
+	if (!str)
+		return (MALLOC_ERROR);
 	if (!str[0] || !str[1])
 	{
 		mini_freetab(str);
-		return (EXIT_FAILLURE);
+		return (INPUT_ERROR);
 	}
 	i = mini_tablen(mini->env_copy);
 	if (get_env(mini, str[0]) == NULL)
@@ -62,5 +64,5 @@ int	mini_export(t_minijoker *mini)
 	mini_freetab(mini->env_copy);
 	mini->env_copy = tmp;
 	mini_freetab(str);
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

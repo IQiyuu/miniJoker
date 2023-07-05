@@ -13,7 +13,8 @@ FILES = listener \
 		mini/mini_export \
 		mini/mini_unset \
 		mini/mini_cd \
-		quote_manager
+		quote_manager \
+		quote_managerbis
 
 SRC = $(foreach f, $(FILES), srcs/$(f).c)
 OBJ = $(SRC:.c=.o)
@@ -30,11 +31,11 @@ r: re
 
 $(NAME): $(LIB) $(OBJ)
 	@printf "> \x1b[32mAll objects compiled\x1b[0m\n"
-	@gcc -o $(NAME) srcs/main.c $(OBJ) $(GFLAGS)
+	@gcc -o $(NAME) srcs/main.c $(OBJ) $(GFLAGS) $(FS)
 	@printf "> \x1b[32mExecutable compiled\x1b[0m\n"
 
 .c.o:
-	@gcc $(CFLAGS) -o $@ -c $<
+	@gcc $(CFLAGS) -o $@ -c $< $(FS)
 
 $(LIB):
 	@make -C minilib

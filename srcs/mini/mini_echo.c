@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:43:06 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:36:03 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ int	mini_echo(t_minijoker *mini)
 	}
 	if (mini_strcmp(mini->tokens[1], "-n", 0) != 0)
 		printf("\n");
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

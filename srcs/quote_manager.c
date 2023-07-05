@@ -6,50 +6,23 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:23:00 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/05 13:14:52 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* /!\ W.I.P /!\ */
 #include "miniJoker.h"
 
-int	mini_tablen(char **tab)
+char	*simpledup_without_quote(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-char	*mini_without_quote(char *str)
-{
-	static char	quote = '\0';
+	char	quote;
 	int		i;
-	int		cpt;
-	char	*tmp;
 	int		j;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
-	cpt = 0;
-	while (str[i])
-	{
-		if (!quote && (str[i] == '\"' || str[i] == '\''))
-			quote = str[i];
-		else if (quote && str[i] == quote)
-			quote = '\0';
-		else
-			cpt++;
-		i++;
-	}
-	if (quote)
-	{
-		quote = '\0';
-		return (NULL);
-	}
-	tmp = (char *)malloc(sizeof(char) * (cpt + 1));
+	quote = '\0';
+	tmp = (char *)malloc(sizeof(char) * (encapsuled_strlen(str) + 1));
 	if (!tmp)
 		return (NULL);
 	i = 0;
@@ -66,38 +39,99 @@ char	*mini_without_quote(char *str)
 	tmp[j] = '\0';
 	return (tmp);
 }
-/* A FAIRE : */
-/* */
-/* - pour compter le nombre de case faire cpt++; et et quand je trouve un " ou ' ne pas faire cpt++ jusqu au prochain */
-/* /!\ Se stop a chaque fois que tu trouves un separateur (hors espace) /!\ */
-/* /!\ Ne pas recopier si je trouve pas les " ou ' fermantes /!\ */
-/* */
-/* - pour recopier addtionner les cases en comptant espace entre chaque */
+
+int	size_encapsuled(char **tab, int *i, char quote)
+{
+	int	k;
+	int	r;
+	int	size;
+
+	size = 0;
+	k = *i;
+	r = 0;
+	while (tab[k])
+	{
+		size += mini_strlen(tab[k]);
+		if (str_is_encapsuled(tab[k]) == quote)
+			r++;
+		if (r == 2)
+			break ;
+		k++;
+	}
+	size += k - *i;
+	return (size);
+}
+
+char	*copy_until_encapsuled(char **tab, int *i, int *kr, char quote)
+{
+	char	*tmp;
+
+	tmp = (char *)malloc(sizeof(char) * (size_encapsuled(tab, i, quote) + 1));
+	if (!tmp)
+		return (NULL);
+	while (tab[*i])
+	{
+		if (kr[0] != 0)
+			tmp[kr[0]++] = ' ';
+		if (str_is_encapsuled(tab[*i]) == quote)
+		{
+			kr[1]++;
+			mini_strcpy(tab[*i], &tmp[kr[0]]);
+			kr[0] += mini_strlen(tab[(*i)++]);
+		}
+		else
+		{
+			mini_strcpy(tab[*i], &tmp[kr[0]]);
+			kr[0] += mini_strlen(tab[(*i)++]);
+		}
+		if (kr[1] == 2)
+			break ;
+	}
+	tmp[kr[0]] = '\0';
+	return (tmp);
+}
+
+char	*multipledup_without_quote(char **tab, int *i, char quote)
+{
+	int		kr[2];
+	char	*res;
+	char	*tmp;
+
+	kr[0] = 0;
+	kr[1] = 0;
+	tmp = copy_until_encapsuled(tab, i, kr, quote);
+	if (!tmp)
+		return (NULL);
+	res = simpledup_without_quote(tmp);
+	free(tmp);
+	return (res);
+}
+
 int	remove_encapsuled(t_minijoker *mini)
 {
-	int i;
+	int		i;
+	int		j;
 	char	**tmp;
 
-	//if (!is_encapsuled(mini->tokens))
-		
-	tmp = (char **)malloc(sizeof(char *) * (mini_tablen(mini->tokens) + 1));
+	if (!tab_is_encapsuled(mini->tokens))
+		return (QUOTE_ERROR);
+	tmp = (char **)malloc(sizeof(char *) * (encap_tablen(mini->tokens) + 1));
+	if (!tmp)
+		return (MALLOC_ERROR);
 	i = 0;
+	j = 0;
 	while (mini->tokens[i])
 	{
-		if (mini_charfind(mini->tokens[i], '\'') != (int)mini_strlen(mini->tokens[i]) ||
-			mini_charfind(mini->tokens[i], '\"') != (int)mini_strlen(mini->tokens[i]))
-			tmp[i] = mini_without_quote(mini->tokens[i]);
+		if (str_is_encapsuled(mini->tokens[i]) != '\0')
+			tmp[j] = multipledup_without_quote(mini->tokens, &i,
+					str_is_encapsuled(mini->tokens[i]));
 		else
-			tmp[i] = mini_strdup(mini->tokens[i]);
-		if (!tmp[i])
-		{
-			mini_freetab(tmp);
-			return (EXIT_FAILLURE);
-		}
-		i++;
+			tmp[j] = simpledup_without_quote(mini->tokens[i++]);
+		if (!tmp[j++])
+			return (flemme_exit(tmp));
 	}
-	tmp[i] = NULL;
+	tmp[j] = NULL;
 	mini_freetab(mini->tokens);
 	mini->tokens = tmp;
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

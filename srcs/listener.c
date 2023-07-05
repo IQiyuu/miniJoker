@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:23:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 12:49:30 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:38:55 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	listen(t_minijoker *mini)
 		str = readline(PROMPT);
 		mini->index = 0;
 		error = parser(mini, str);
-		if (error == 1)
+		if (error == END)
 			exit_minijoker(mini, str);
-		if (!error)
+		if (error != QUOTE_ERROR)
 			exec_loop(str, mini);
 		add_history(str);
 		//apply_redirection(mini);

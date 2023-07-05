@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:22:54 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 12:43:54 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/05 13:22:05 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,25 @@
 # include <sys/types.h>
 # include "minilib.h"
 
-# ifndef EXIT_SUCESS
-#  define EXIT_SUCCESS 0
-# endif
-# ifndef EXIT_FAILLURE
-#  define EXIT_FAILLURE 1
-# endif
 # ifndef PROMPT
 #  define PROMPT "\x1b[30mmini\x1b[31mJoker\x1b[0m> "
 # endif
 
-typedef struct s_minijoker {
-	char	**env_copy;
-	char	*sep[7];
-	char	**tokens;
-	int		index;
+enum e_errors	{SUCCESS,
+	ARG_NUMBER,
+	END,
+	MALLOC_ERROR,
+	EXEC_FILE,
+	DIR_NOT_FOUND,
+	INPUT_ERROR,
+	QUOTE_ERROR,
+	UNKNOW_COMMAND,
+	UNKNOW_ERROR};
+	typedef struct s_minijoker {
+	char **env_copy;
+	char *sep[7];
+	char **tokens;
+	int index;
 }	t_minijoker;
 
 /* BUILTIN */
@@ -48,8 +52,20 @@ int		mini_cd(t_minijoker *mini);
 int		mini_export(t_minijoker *mini);
 int		mini_unset(t_minijoker *mini);
 
-void	listen(t_minijoker *mini);
+/* Parsing */
 int		parser(t_minijoker *mini, char *input);
+char	str_is_encapsuled(char *str);
+int		tab_is_encapsuled(char **tab);
+int		encapsuled_strlen(char *str);
+int		encap_tablen(char **tab);
+char	*simpledup_without_quote(char *str);
+int		size_encapsuled(char **tab, int *i, char quote);
+char	*copy_until_encapsuled(char **tab, int *i, int *kr, char quote);
+char	*multipledup_without_quote(char **tab, int *i, char quote);
+int		remove_encapsuled(t_minijoker *mini);
+int		flemme_exit(char **tab);
+
+void	listen(t_minijoker *mini);
 void	sigint(int code);
 void	exit_minijoker(t_minijoker *mini, char *str);
 char	*get_env(t_minijoker *mini, char *str);

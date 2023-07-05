@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_strlen.c                                      :+:      :+:    :+:   */
+/*   mini_strcpy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 11:03:03 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/05 13:16:23 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/05 12:02:43 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/05 13:16:37 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
 
-int	mini_strlen(char *str)
+int	mini_strcpy(char *src, char *dst)
 {
 	int	i;
 
-	i = 0;
-	while (str[i++])
-		;
-	return (i - 1);
+	if (!src || !dst)
+		return (-1);
+	i = -1;
+	while (src[++i] && dst[i])
+		dst[i] = src[i];
+	return (i);
 }

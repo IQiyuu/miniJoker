@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:34:13 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 12:46:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/05 11:38:34 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int	parser(t_minijoker *mini, char *input)
 	if (!input)
 	{
 		mini->tokens = NULL;
-		return (1);
+		return (END);
 	}
 	mini->tokens = mini_split(input, mini->sep);
-	if (remove_encapsuled(mini))
+	if (remove_encapsuled(mini) == QUOTE_ERROR)
 	{
 		printf("error unclosed quote\n");
-		return (2);
+		return (QUOTE_ERROR);
 	}
 	if (mini_strcmp(mini->tokens[0], "exit", 0) == 0)
-		return (1);
-	return (0);
+		return (END);
+	return (SUCCESS);
 }
