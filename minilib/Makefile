@@ -27,7 +27,7 @@ $(NAME): $(OBJ)
 	@printf ">  \x1b[32m$(NAME) compiled \x1b[0m\n"
 
 .c.o:
-	@gcc $(CFLAGS) -o $@ -c $<
+	@gcc $(CFLAGS) -o $@ -c $< -fsanitize=address -g
 
 clean:
 	@rm -rf $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:05:53 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 12:52:32 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/05 15:36:07 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,106 +18,150 @@ static char	**quit(char **res)
 	return (NULL);
 }
 
-static int	nb_of_words(char *str, char **charset, int i, int size)
+int	mini_len(char *str, char **charset, int i)
 {
-	int	n;
+	char	quote;
+	int		size;
 
-	while (str[i] == ' ')
+	size = 0;
+	while (str[i] && str[i] == ' ')
 		i++;
 	while (str[i])
 	{
-		n = -1;
-		while (charset[++n])
+		if (mini_is_intab(charset, &str[i]))
+			break ;
+		while (str[i] && !mini_is_intab(charset, &str[i]) && str[i] != ' ')
 		{
-			if (mini_strcmp(charset[n], &str[i], 1) == 0)
+			if (str[i] == '\"' || str[i] == '\'')
 			{
-				if (str[i + mini_strlen(charset[n])] != '\0')
+				quote = str[i++];
+				while (str[i] && str[i++] != quote)
 					size++;
-				while (str[i] && !mini_strcmp(charset[n], &str[i], 1))
-					i += mini_strlen(charset[n]);
-				break ;
+			}
+			else
+			{
+				size++;
+				i++;
 			}
 		}
-		if (!charset[n])
-			i++;
+		if (str[i] && str[i] == ' ')
+			break ;
 	}
-	if (size != 0 || (size == 0 && str[0] != '\0'))
+	if (mini_is_intab(charset, &str[i]) && size == 0)
 		size++;
 	return (size);
 }
 
-static int	count_words(char *str, char **charset, int *i)
+char	*ministrdup(char *str, char **charset, int	*i)
 {
-	int	cpt;
-	int	n;
-
-	cpt = *i;
-	while (str[cpt])
-	{
-		n = 0;
-		while (charset[n])
-		{
-			if (mini_strcmp(charset[n], &str[cpt], 1) == 0)
-				break ;
-			n++;
-		}
-		if (charset[n])
-			break ;
-		cpt++;
-	}
-	if (cpt - (*i) == 0 && charset[n])
-		cpt = mini_strlen(charset[n]);
-	return (cpt);
-}
-
-static char	*ministrdup(char *str, char **charset, int *i)
-{
-	int		cpt;
 	char	*res;
+	int		size;
+	char	quote;
 	int		j;
 
-	if (!str || !str[*i])
-		return (NULL);
-	cpt = count_words(str, charset, i);
-	res = (char *)malloc(sizeof(char) * (cpt - *i + 1));
+	size = mini_len(str, charset, *i);
+	res = (char *)malloc(sizeof(char) * (size + 1));
 	if (!res)
 		return (NULL);
 	j = 0;
-	while (cpt - *i > 0)
+	while (str[*i] && str[*i] == ' ')
+		(*i)++;
+	while (str[*i])
 	{
-		res[j] = str[*i];
-		j++;
-		(*i)++;
+		if (mini_is_intab(charset, &str[*i]))
+			break ;
+		while (str[*i] && !mini_is_intab(charset, &str[*i]) && str[*i] != ' ')
+		{
+			if (str[*i] == '\"' || str[*i] == '\'')
+			{
+				quote = str[(*i)++];
+				while (str[*i] && str[(*i)++] != quote)
+					res[j++] = str[(*i) - 1];
+			}
+			else
+				res[j++] = str[(*i)++];
+		}
+		if (str[*i] && str[*i] == ' ')
+			break ;
 	}
+	if (mini_is_intab(charset, &str[*i]) && size == 1)
+		res[j++] = str[(*i)++];
 	res[j] = '\0';
-	if (str[*i] == ' ')
-		(*i)++;
 	return (res);
+}
+
+int	nb_of_words(char *str, char **charset)
+{
+	int	cpt;
+	int	i;
+	int	quote;
+
+	i = 0;
+	cpt = 0;
+	while (str[i])
+	{
+		while (str[i] && str[i] == ' ')
+			i++;
+		cpt++;
+		if (!str[i])
+			break ;
+		if (mini_is_intab(charset, &str[i]))
+			i++;
+		while (str[i] && !mini_is_intab(charset, &str[i]) && str[i] != ' ')
+		{
+			if (str[i] == '\"' || str[i] == '\'')
+			{
+				quote = str[i++];
+				while (str[i] && str[i++] != quote)
+					;
+			}
+			else
+				i++;
+		}
+	}
+	return (cpt);
+}
+
+int	stris_encapsuled(char *str)
+{
+	char	quote;
+	int		i;
+
+	i = 0;
+	quote = '\0';
+	while (str[i])
+	{
+		if (quote == '\0' && (str[i] == '\'' || str[i] == '\"'))
+			quote = str[i];
+		else if (quote != '\0' && quote == str[i])
+			quote = '\0';
+		i++;
+	}
+	return (quote == '\0');
 }
 
 char	**mini_split(char *str, char **charset)
 {
+	char	**res;
 	int		size;
 	int		i;
 	int		j;
-	char	**res;
 
-	size = nb_of_words(str, charset, 0, 0);
+	if (!str || !stris_encapsuled(str))
+		return (NULL);
+	size = nb_of_words(str, charset);
 	res = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!res)
-		return (NULL);
-	j = 0;
+		NULL;
 	i = 0;
-	while (j < size)
+	j = 0;
+	while (i < size)
 	{
-		while (str[i] == ' ')
-			i++;
-		if (!str[i])
-			break ;
-		res[j++] = ministrdup(str, charset, &i);
-		if (!res)
+		res[i] = ministrdup(str, charset, &j);
+		if (!res[i])
 			return (quit(res));
+		i++;
 	}
-	res[j] = NULL;
+	res[i] = NULL;
 	return (res);
 }

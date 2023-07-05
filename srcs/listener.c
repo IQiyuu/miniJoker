@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:23:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/04 16:38:55 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/05 14:35:28 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	listen(t_minijoker *mini)
 
 	while (1)
 	{
+		mini->index = 0;
 		str = readline(PROMPT);
 		mini->index = 0;
 		error = parser(mini, str);

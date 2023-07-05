@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:22:54 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/05 13:22:05 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/05 15:35:33 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ enum e_errors	{SUCCESS,
 	UNKNOW_ERROR};
 	typedef struct s_minijoker {
 	char **env_copy;
-	char *sep[7];
+	char *sep[6];
 	char **tokens;
 	int index;
 }	t_minijoker;
@@ -69,11 +69,11 @@ void	listen(t_minijoker *mini);
 void	sigint(int code);
 void	exit_minijoker(t_minijoker *mini, char *str);
 char	*get_env(t_minijoker *mini, char *str);
-int		true_exec(t_minijoker *mini, int i);
+int		true_exec(t_minijoker *mini);
 int		mini_exec(t_minijoker *mini);
 void	freetab(char **tab);
 void	exec_loop(char *str, t_minijoker *mini);
-int		is_mini_func(t_minijoker *mini, int i);
+int		is_mini_func(t_minijoker *mini);
 int		remove_encapsuled(t_minijoker *mini);
 
 #endif

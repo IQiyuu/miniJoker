@@ -12,8 +12,10 @@ echo:
     echo "oui" -n => ouiminijoker>
     echo oui            non => oui non
 
-a faire:
-    regarder comment marchent les redirections
-        - Ca creer le fichier des le debut ?
-        - Ca redirige quoi si ya une erreur ?
-        - La creation de fichier peut crash ?
+parsing:
+    echo oui>test ✔
+    echo oui>|test ✔
+    echo oui|>test ✔
+    echo oui>>|test ✖️
+    echo oui<|test ✖️
+    echo oui>><test ✖️
