@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:23:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/05 14:35:28 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/07 14:17:41 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,14 @@ void	listen(t_minijoker *mini)
 
 	while (1)
 	{
-		mini->index = 0;
 		str = readline(PROMPT);
-		mini->index = 0;
 		error = parser(mini, str);
 		if (error == END)
 			exit_minijoker(mini, str);
 		if (error != QUOTE_ERROR)
-			exec_loop(str, mini);
+			redirection(mini);
 		add_history(str);
-		//apply_redirection(mini);
 		free(str);
-		mini_freetab(mini->tokens);
+		mini_tokenclear(mini->tokens);
 	}
 }

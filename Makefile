@@ -13,8 +13,7 @@ FILES = listener \
 		mini/mini_export \
 		mini/mini_unset \
 		mini/mini_cd \
-		quote_manager \
-		quote_managerbis
+		redirection
 
 SRC = $(foreach f, $(FILES), srcs/$(f).c)
 OBJ = $(SRC:.c=.o)

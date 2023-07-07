@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:23:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/05 13:23:20 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/07 10:44:06 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 
 # include <stdlib.h>
 
-char	**mini_split(char *str, char **charset);
+typedef struct s_token {
+	char			*content;
+	struct s_token *next;
+	struct s_token *prev;
+} t_token;
+
+t_token	*mini_split(char *str, char **charset);
 char	**mini_ft_split(char *str, char c);
 int		mini_tablen(char **tab);
 int		mini_strlen(char *str);
@@ -28,5 +34,13 @@ char	*mini_cut_to(char *str, char c);
 int		mini_charfind(char *str, char c);
 void	mini_freetab(char **tab);
 int		mini_strcpy(char *src, char *dst);
+
+/* tokens */
+void    mini_tokenclear(t_token *lst);
+t_token *mini_tokenlast(t_token *lst);
+int    mini_tokenadd_back(t_token **lst, t_token *token);
+t_token *mini_tokennew(t_token *lst, char *str);
+void    mini_tokenwrite(t_token *lst);
+t_token *mini_tokenfirst(t_token *lst);
 
 #endif

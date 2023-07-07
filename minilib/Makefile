@@ -12,7 +12,13 @@ FILES = mini_charfind \
 	mini_strlen \
 	mini_tablen \
 	mini_freetab \
-	mini_strcpy
+	mini_strcpy \
+	mini_tokenclear \
+	mini_tokenlast \
+	mini_tokenadd_back \
+	mini_tokennew \
+	mini_tokenwrite \
+	mini_tokenfirst
 
 S = $(foreach f, $(FILES), $(f).c)
 OBJ = $(S:.c=.o)

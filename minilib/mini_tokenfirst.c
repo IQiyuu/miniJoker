@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_is_intab.c                                    :+:      :+:    :+:   */
+/*   mini_tokenfirst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 11:04:17 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/07 14:37:52 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/07 10:42:47 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/07 12:54:09 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
 #include <stdio.h>
-int	mini_is_intab(char **tab, char *str)
+t_token *mini_tokenfirst(t_token *lst)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
+	while (lst)
 	{
-		if (mini_strcmp(tab[i], str, 1) == 0)
-			return (mini_strlen(tab[i]));
-		i++;
+		if (!lst->prev)
+			return (lst);
+		lst = lst->prev;
 	}
-	return (0);
+	return (lst);
 }

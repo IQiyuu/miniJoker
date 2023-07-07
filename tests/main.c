@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_is_intab.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 11:04:17 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/07 14:37:52 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/06 11:11:21 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/07 11:11:47 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilib.h"
+#include <fcntl.h>
+#include <unistd.h>
 #include <stdio.h>
-int	mini_is_intab(char **tab, char *str)
-{
-	int	i;
+#include <sys/wait.h>
 
-	i = 0;
-	while (tab[i])
-	{
-		if (mini_strcmp(tab[i], str, 1) == 0)
-			return (mini_strlen(tab[i]));
-		i++;
-	}
-	return (0);
+int main()
+{
+    int fd1 = open("CouCou", O_RDWR | O_CREAT | O_TRUNC);
+    int fd = 1;
+    pid_t pid = fork();
+    int     statut;
+
+	if (pid == -1) {
+		return 1;
+	} else if (pid == 0) {
+        fd = dup2(fd1, fd);
+        close(fd1);
+        write(fd, "TEST\n", 5);
+	} else 
+        fd = 1;
+    wait(&statut);
+    return 0;
 }

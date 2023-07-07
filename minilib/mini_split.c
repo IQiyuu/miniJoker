@@ -6,15 +6,15 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:05:53 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/05 15:36:07 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/07 14:42:49 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
 
-static char	**quit(char **res)
+static t_token *quit(t_token *tokens)
 {
-	mini_freetab(res);
+	mini_tokenclear(tokens);
 	return (NULL);
 }
 
@@ -48,7 +48,7 @@ int	mini_len(char *str, char **charset, int i)
 			break ;
 	}
 	if (mini_is_intab(charset, &str[i]) && size == 0)
-		size++;
+		size += mini_is_intab(charset, &str[i]);
 	return (size);
 }
 
@@ -84,8 +84,12 @@ char	*ministrdup(char *str, char **charset, int	*i)
 		if (str[*i] && str[*i] == ' ')
 			break ;
 	}
-	if (mini_is_intab(charset, &str[*i]) && size == 1)
+	if (mini_is_intab(charset, &str[*i]) && size <= 2)
+	{
+		if (mini_is_intab(charset, &str[*i]) == 2)
+			res[j++] = str[(*i)++];
 		res[j++] = str[(*i)++];
+	}
 	res[j] = '\0';
 	return (res);
 }
@@ -133,35 +137,34 @@ int	stris_encapsuled(char *str)
 	{
 		if (quote == '\0' && (str[i] == '\'' || str[i] == '\"'))
 			quote = str[i];
-		else if (quote != '\0' && quote == str[i])
+		else if (quote == str[i])
 			quote = '\0';
 		i++;
 	}
 	return (quote == '\0');
 }
 
-char	**mini_split(char *str, char **charset)
+t_token	*mini_split(char *str, char **charset)
 {
-	char	**res;
+	char	*content;
 	int		size;
-	int		i;
-	int		j;
+	int		ij[2];
+	t_token	*tokens;
 
+	tokens = NULL;
 	if (!str || !stris_encapsuled(str))
 		return (NULL);
 	size = nb_of_words(str, charset);
-	res = (char **)malloc(sizeof(char *) * (size + 1));
-	if (!res)
-		NULL;
-	i = 0;
-	j = 0;
-	while (i < size)
+	ij[0] = 0;
+	ij[1] = 0;
+	while (ij[0] < size)
 	{
-		res[i] = ministrdup(str, charset, &j);
-		if (!res[i])
-			return (quit(res));
-		i++;
+		content = ministrdup(str, charset, &ij[1]);
+		if (!content)
+			return (quit(tokens));
+		if (!mini_tokenadd_back(&tokens, mini_tokennew(tokens, content)))
+			return (quit(tokens));
+		ij[0]++;
 	}
-	res[i] = NULL;
-	return (res);
+	return (tokens);
 }

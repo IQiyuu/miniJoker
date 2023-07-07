@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:22:54 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/05 15:35:33 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/07 14:51:48 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,32 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include "minilib.h"
+# include <sys/wait.h>
+#include <fcntl.h>
 
 # ifndef PROMPT
 #  define PROMPT "\x1b[30mmini\x1b[31mJoker\x1b[0m> "
 # endif
 
-enum e_errors	{SUCCESS,
-	ARG_NUMBER,
-	END,
-	MALLOC_ERROR,
-	EXEC_FILE,
-	DIR_NOT_FOUND,
-	INPUT_ERROR,
-	QUOTE_ERROR,
-	UNKNOW_COMMAND,
-	UNKNOW_ERROR};
+enum e_errors	{SUCCESS, 	//0
+	ARG_NUMBER, 			//1
+	END, 					//2
+	MALLOC_ERROR,			//3
+	EXEC_FILE,				//4
+	DIR_NOT_FOUND,			//5
+	INPUT_ERROR,			//6
+	QUOTE_ERROR,			//7
+	UNKNOW_COMMAND,			//8
+	UNKNOW_ERROR,			//9
+	FILE_NOT_FOUND,			//10
+	OPEN_ERROR,				//11
+	FORK_ERROR};			//12
 	typedef struct s_minijoker {
 	char **env_copy;
 	char *sep[6];
-	char **tokens;
-	int index;
+	struct s_token	*tokens;
+	int fdin;
+	int	fdout;
 }	t_minijoker;
 
 /* BUILTIN */
@@ -72,8 +78,9 @@ char	*get_env(t_minijoker *mini, char *str);
 int		true_exec(t_minijoker *mini);
 int		mini_exec(t_minijoker *mini);
 void	freetab(char **tab);
-void	exec_loop(char *str, t_minijoker *mini);
+int		exec_loop(t_minijoker *mini);
 int		is_mini_func(t_minijoker *mini);
 int		remove_encapsuled(t_minijoker *mini);
+int 	redirection(t_minijoker *mini);
 
 #endif
