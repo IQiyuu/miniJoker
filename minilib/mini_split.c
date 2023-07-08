@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:05:53 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/07 14:42:49 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:50:27 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int	stris_encapsuled(char *str)
 	return (quote == '\0');
 }
 
-t_token	*mini_split(char *str, char **charset)
+t_token	*mini_split(char *str, char **charset, int *error)
 {
 	char	*content;
 	int		size;
@@ -152,8 +152,13 @@ t_token	*mini_split(char *str, char **charset)
 	t_token	*tokens;
 
 	tokens = NULL;
-	if (!str || !stris_encapsuled(str))
+	if (!str)
 		return (NULL);
+	if (!stris_encapsuled(str))
+	{
+		*error = QUOTE_ERROR;
+		return (NULL);
+	}
 	size = nb_of_words(str, charset);
 	ij[0] = 0;
 	ij[1] = 0;

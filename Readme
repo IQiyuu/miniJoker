@@ -26,10 +26,10 @@ redirection (simple): redirige la sortie standard
     grep 2> test => redirige la sortie d erreur dans test
     grep > test1 2> test => redirige le resultat vers test1 et l erreur vers test
     grep 2>&1 => redirige l'erreur a la fois dans le fd 2 et fd 1
-    grep 2>&454 => si le fd 454 n'existe pas error fd unvailable
-    grep 2> => error unexpected newline
-    grep 2>& => error unexpected newline
-    grep &2>test => (pas compris ca fait de la merde) => go error et stop
+    grep 2>&454 => si le fd 454 n'existe pas mini->error fd unvailable
+    grep 2> => mini->error unexpected newline
+    grep 2>& => mini->error unexpected newline
+    grep &2>test => (pas compris ca fait de la merde) => go mini->error et stop
 
 redirection (double): redirige la sortie standard
     echo oui >> test => ajoute dans test
@@ -39,7 +39,7 @@ redirection (double): redirige la sortie standard
     grep 2>>&1 => unexpected &
     grep 2>>& => unexpected &
     grep &>>test => unexpected &
-    grep &2>>test => (pas compris ca fait de la merde) => go error et stop
+    grep &2>>test => (pas compris ca fait de la merde) => go mini->error et stop
 
 redirection (input): redirige l entree standard
     cat < test => utilise le contenu de test dans cat
@@ -59,3 +59,10 @@ echo oui > test > prout
 mini->ffdin = open(test);
 close(mini->ffdin);
 mini->ffdin = open(prout);
+
+08/07 => A FAIRE:  
+        - les HERE_DOCUMENTS
+        - LES $ VARIABLES D ENV (DONT $?)
+        - LES > < >> << A ENLEVER DU PARSING APRES AVOIR OUVERT LES FICHIERS
+        - GERER LES MAJ
+        - PB DE PARSING "ls " renvoie ls->" " (en gros un token ls et un token espace)
