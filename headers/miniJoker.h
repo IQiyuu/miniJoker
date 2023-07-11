@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniJoker.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:22:54 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/08 16:53:36 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/11 14:06:02 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 	int	save_stdin;
 	int	redir_fd;
 	int	error;
+	int	lerror;
 }	t_minijoker;
 
 /* BUILTIN */

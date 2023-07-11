@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:11:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/08 13:56:23 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/11 13:25:19 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main()
 #include <fcntl.h>
 
 int main(void)
-{
+{/*
     int fd_out;
     int save_stdout;
 
@@ -53,6 +53,11 @@ int main(void)
     dup2(save_stdout, STDOUT_FILENO);
     close(save_stdout);
     write(1, "non\n", 4);
-    close(fd_out);
+    close(fd_out);*/
+    char *str = "lol";
+    char *tmp = str;
+    str = "prout";
+    printf("%s\n", tmp);
+    printf("%s\n", str);
     return (0);
 }

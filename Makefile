@@ -30,11 +30,11 @@ r: re
 
 $(NAME): $(LIB) $(OBJ)
 	@printf "> \x1b[32mAll objects compiled\x1b[0m\n"
-	@gcc -o $(NAME) srcs/main.c $(OBJ) $(GFLAGS) $(FS)
+	@gcc -o $(NAME) srcs/main.c $(OBJ) $(GFLAGS) -fsanitize=address -g
 	@printf "> \x1b[32mExecutable compiled\x1b[0m\n"
 
 .c.o:
-	@gcc $(CFLAGS) -o $@ -c $< $(FS)
+	@gcc $(CFLAGS) -o $@ -c $< -fsanitize=address -g
 
 $(LIB):
 	@make -C minilib

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_tokennew.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 09:41:11 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/07 13:18:55 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/11 13:34:22 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
-#include <stdio.h>
-t_token *mini_tokennew(t_token *lst, char *str)
+
+t_token *mini_tokennew(char *str)
 {
     t_token *token;
 
@@ -23,10 +23,7 @@ t_token *mini_tokennew(t_token *lst, char *str)
         if (!token)
             return NULL;
         token->content = str;
-        if (lst)
-            token->prev = mini_tokenlast(lst);
-        else
-            token->prev = NULL;
+        token->prev = NULL;
         token->next = NULL;
     }
     return (token);

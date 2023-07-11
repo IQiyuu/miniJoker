@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:05:53 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/08 16:50:27 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/11 17:04:09 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	mini_len(char *str, char **charset, int i)
 		size += mini_is_intab(charset, &str[i]);
 	return (size);
 }
-
+#include <stdio.h>
 char	*ministrdup(char *str, char **charset, int	*i)
 {
 	char	*res;
@@ -106,9 +106,9 @@ int	nb_of_words(char *str, char **charset)
 	{
 		while (str[i] && str[i] == ' ')
 			i++;
-		cpt++;
 		if (!str[i])
 			break ;
+		cpt++;
 		if (mini_is_intab(charset, &str[i]))
 			i++;
 		while (str[i] && !mini_is_intab(charset, &str[i]) && str[i] != ' ')
@@ -167,7 +167,7 @@ t_token	*mini_split(char *str, char **charset, int *error)
 		content = ministrdup(str, charset, &ij[1]);
 		if (!content)
 			return (quit(tokens));
-		if (!mini_tokenadd_back(&tokens, mini_tokennew(tokens, content)))
+		if (!mini_tokenadd_back(&tokens, mini_tokennew(content)))
 			return (quit(tokens));
 		ij[0]++;
 	}

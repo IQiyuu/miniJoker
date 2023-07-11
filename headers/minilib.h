@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minilib.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:23:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/08 16:53:20 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/11 16:31:16 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,16 @@ void    mini_putstr_fd(int fd, char *str);
 char    *mini_append_path(char *s1, char *s2);
 int 	mini_is_valid_func(char *path, char *str);
 int		is_mini_func(char *str);
+char    *mini_itoa(int n);
+void	*mini_calloc(size_t count, size_t size);
+void	mini_bzero(void *s, size_t n);
+char    *mini_tolower(char *str);
 
 /* tokens */
 void    mini_tokenclear(t_token *lst); // clear la liste
 t_token *mini_tokenlast(t_token *lst); // donne le dernier element
 int    mini_tokenadd_back(t_token **lst, t_token *token); // ajoute a la fin de la liste
-t_token *mini_tokennew(t_token *lst, char *str); // creer un nouvel element avec comme contenu str
+t_token *mini_tokennew(char *str); // creer un nouvel element avec comme contenu str
 void    mini_tokenwrite(t_token *lst); // ecrit toute la liste
 t_token *mini_tokenfirst(t_token *lst); // retourne le premier element
 

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_append_path.c                                 :+:      :+:    :+:   */
+/*   mini_tolower.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 16:37:26 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/08 16:43:10 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/11 16:22:54 by iqiyu             #+#    #+#             */
+/*   Updated: 2023/07/11 16:35:10 by iqiyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
 
-char    *mini_append_path(char *s1, char *s2)
+char    *mini_tolower(char *str)
 {
     char    *res;
     int     i;
-    int     j;
 
-    if (!s1 || !s2)
+    if (!str)
         return (NULL);
-    res = (char *)malloc(sizeof(char) * (mini_strlen(s1) + mini_strlen(s2) + 2));
-    i = -1;
-    while (s1[++i])
-        res[i] = s1[i];
-    res[i++] = '/';
+    res = (char *)malloc(sizeof(char) * (mini_strlen(str) + 1));
     i = 0;
-    j = 0;
-    while (s2[j])
-        res[i++] = s2[j++];
+    if (!res)
+        return (NULL);
+    while (str[i])
+    {
+        if (str[i] >= 'A' && str[i] <= 'Z')
+            res[i] = str[i] + ('a' - 'A');
+        else
+            res[i] = str[i];
+        i++;
+    }
     res[i] = '\0';
     return (res);
 }

@@ -21,7 +21,11 @@ FILES = mini_charfind \
 	mini_tokenfirst \
 	mini_putstr_fd \
 	mini_append_path \
-	mini_is_valid_func
+	mini_is_valid_func \
+	mini_itoa \
+	mini_calloc \
+	mini_bzero \
+	*mini_tolower
 
 S = $(foreach f, $(FILES), $(f).c)
 OBJ = $(S:.c=.o)

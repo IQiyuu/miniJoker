@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_strlen.c                                      :+:      :+:    :+:   */
+/*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 11:03:03 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/05 13:16:23 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/06 13:59:05 by romartin          #+#    #+#             */
+/*   Updated: 2023/07/08 14:08:06 by romartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilib.h"
+#include "miniJoker.h"
 
-int	mini_strlen(char *str)
+int	mini_pwd(void)
 {
-	int	i;
+	char	args[1024];
 
-	i = 0;
-	while (str[i++])
-		;
-	return (i - 1);
+	printf("%s\n", getcwd(args, 1024));
+	return (EXIT_SUCCESS);
 }

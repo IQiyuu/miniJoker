@@ -66,3 +66,11 @@ mini->ffdin = open(prout);
         - LES > < >> << A ENLEVER DU PARSING APRES AVOIR OUVERT LES FICHIERS
         - GERER LES MAJ
         - PB DE PARSING "ls " renvoie ls->" " (en gros un token ls et un token espace)
+
+11/07 => A TEST:
+    - LES $
+    - LES MAJS
+    => A FAIRE:
+        - les HERE_DOCUMENTS
+        - LES > < >> << A ENLEVER DU PARSING APRES AVOIR OUVERT LES FICHIERS
+            => UNE FCT MINI_LSTDEL(T_TOKEN **TOKENS) (TOKENS = L ELEMENT A DELETE)
