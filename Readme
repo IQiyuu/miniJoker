@@ -98,6 +98,8 @@ ROBIN PARTS => A FAIRE
     va afficher lol comme si on lui avait donne le heredoc comme fichier
 
 
+22/07:
+    dans le execve lui envoyer env_cpy;
 
 TESTS: ERRORS A CORRIGES
 
