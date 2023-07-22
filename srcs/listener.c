@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   listener.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:23:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/11 17:05:09 by iqiyu            ###   ########.fr       */
+/*   Updated: 2023/07/22 15:01:32 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	listen(t_minijoker *mini)
 		mini->error = SUCCESS;
 		mini->redir_fd = -1;
 		str = readline(PROMPT);
+		if (!str)
+			exit_minijoker(mini, NULL);
 		parser(mini, str);
 		if (mini->tokens)
 		{
@@ -36,6 +38,7 @@ void	listen(t_minijoker *mini)
 				redirection(mini);
 			add_history(str);
 			mini_tokenclear(mini->tokens);
+			mini->tokens = NULL;
 		}
 		free(str);
 	}

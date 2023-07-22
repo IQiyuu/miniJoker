@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   mini_itoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:08:27 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/11 14:13:03 by iqiyu            ###   ########.fr       */
+/*   Updated: 2023/07/22 15:32:00 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
 
-static int  mini_abs(int nbr)
+static int	mini_abs(int nbr)
 {
-	return ((nbr < 0) ? -nbr : nbr);
+	if (nbr < 0)
+		return (-nbr);
+	return (nbr);
 }
 
-static void mini_strrev(char *str)
+static void	mini_strrev(char *str)
 {
 	size_t	length;
 	size_t	i;
@@ -34,14 +36,15 @@ static void mini_strrev(char *str)
 	}
 }
 
-char    *mini_itoa(int n)
+char	*mini_itoa(int n)
 {
 	char	*str;
 	int		is_neg;
 	size_t	length;
 
 	is_neg = (n < 0);
-	if (!(str = mini_calloc(11 + is_neg, sizeof(*str))))
+	str = mini_calloc(11 + is_neg, sizeof(*str));
+	if (!str)
 		return (NULL);
 	if (n == 0)
 		str[0] = '0';

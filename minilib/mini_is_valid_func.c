@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:40:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/08 16:54:15 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/22 15:30:25 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ int	is_mini_func(char *str)
 	return (0);
 }
 
-static int is_true_func(char *path, char *str)
+static int	is_true_func(char *path, char *str)
 {
-    char    *exec;
-    int     ret;
+	char	*exec;
+	int		ret;
 
-    ret = 0;
-    exec = mini_append_path(path, str);
-    if (access(exec, X_OK) == 0)
-        ret = 1;
-    free(exec);
-    return (ret);
+	ret = 0;
+	exec = mini_append_path(path, str);
+	if (access(exec, X_OK) == 0)
+		ret = 1;
+	free(exec);
+	return (ret);
 }
 
-int mini_is_valid_func(char *path, char *str)
+int	mini_is_valid_func(char *path, char *str)
 {
-    return (is_mini_func(str) || is_true_func(path, str));
+	return (is_mini_func(str) || is_true_func(path, str));
 }

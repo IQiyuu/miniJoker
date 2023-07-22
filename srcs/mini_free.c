@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:53:42 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/11 17:06:48 by iqiyu            ###   ########.fr       */
+/*   Updated: 2023/07/22 15:01:39 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	exit_minijoker(t_minijoker *mini, char *str)
 		mini_tokenclear(mini->tokens);
 	free(str);
 	rl_clear_history();
-	system("leaks minijoker");
+	//system("leaks minijoker");
+	write(1, "exit\n", 5);
 	exit(EXIT_SUCCESS);
 }

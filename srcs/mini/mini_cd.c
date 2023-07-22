@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:50:26 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/08 16:58:04 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/22 15:45:43 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ void	mini_cd(t_minijoker *mini)
 			perror(mini->tokens->content);
 		}
 		free(exec);
-
 	}
 }

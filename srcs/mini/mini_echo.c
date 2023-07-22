@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:43:06 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/08 15:12:40 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/22 15:46:03 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ int	mini_echo(t_minijoker *mini)
 		lr = 0;
 		mini->tokens = mini->tokens->next;
 	}
-	while (mini->tokens && !mini_is_intab(mini->sep, mini->tokens->content))
+	while (mini->tokens && (!mini_is_intab(mini->sep, mini->tokens->content, 0)
+			|| mini->tokens->altego == PARAM))
 	{
 		mini_putstr_fd(mini->fdout, mini->tokens->content);
-		if (mini->tokens->next && mini->tokens->content && !mini_is_intab(mini->sep, mini->tokens->next->content))
+		if (mini->tokens->next && mini->tokens->content
+			&& (!mini_is_intab(mini->sep, mini->tokens->next->content, 1)))
 			mini_putstr_fd(mini->fdout, " ");
 		mini->tokens = mini->tokens->next;
 	}

@@ -13,7 +13,9 @@ FILES = listener \
 		mini/mini_export \
 		mini/mini_unset \
 		mini/mini_cd \
-		redirection
+		redirection \
+		mini_pipe \
+		main
 
 SRC = $(foreach f, $(FILES), srcs/$(f).c)
 OBJ = $(SRC:.c=.o)
@@ -30,7 +32,7 @@ r: re
 
 $(NAME): $(LIB) $(OBJ)
 	@printf "> \x1b[32mAll objects compiled\x1b[0m\n"
-	@gcc -o $(NAME) srcs/main.c $(OBJ) $(GFLAGS) -fsanitize=address -g
+	@gcc -o $(NAME) $(OBJ) $(GFLAGS) -fsanitize=address -g
 	@printf "> \x1b[32mExecutable compiled\x1b[0m\n"
 
 .c.o:

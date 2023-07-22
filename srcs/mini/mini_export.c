@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:24:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/08 16:15:00 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/20 12:40:23 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	mini_export(t_minijoker *mini)
 	mini->error = SUCCESS;
 	mini->tokens = mini->tokens->next;
 	if (!mini->tokens || !mini->tokens->content
-		|| mini_is_intab(mini->sep, mini->tokens->content))
+		|| mini_is_intab(mini->sep, mini->tokens->content, 1))
 	{
 		i = 0;
 		while (mini->env_copy[i])

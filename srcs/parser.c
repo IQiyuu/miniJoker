@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iqiyu <iqiyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:34:13 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/11 17:03:51 by iqiyu            ###   ########.fr       */
+/*   Updated: 2023/07/22 15:43:11 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-
 void	parse_dol(t_token *tokens)
 {
 	char	*tmp;
-	int 	i = 0;
+	int		i;
 	t_token	*nt;
 
+	i = 0;
 	nt = NULL;
 	while (tokens)
 	{
@@ -29,7 +29,8 @@ void	parse_dol(t_token *tokens)
 			{
 				if (tmp[i] == '$')
 				{
-					mini_tokenadd_back(&nt, mini_tokennew(mini_cut_to(&tmp[i], ' ')));
+					mini_tokenadd_back(&nt,
+						mini_tokennew(mini_cut_to(&tmp[i], ' '), OTHER));
 					while (tmp[i] && tmp[i] != ' ')
 						i++;
 					if (tmp[i])
@@ -37,7 +38,8 @@ void	parse_dol(t_token *tokens)
 				}
 				if (!tmp[i])
 					break ;
-				mini_tokenadd_back(&nt, mini_tokennew(mini_cut_to(&tmp[i], '$')));
+				mini_tokenadd_back(&nt,
+					mini_tokennew(mini_cut_to(&tmp[i], '$'), OTHER));
 				while (tmp[i] && tmp[i] != '$')
 					i++;
 			}
@@ -96,13 +98,16 @@ void	parse_env(t_minijoker *mini, t_token *tokens)
 					{
 						low = mini_tolower(tab[i]);
 						if (is_func(mini, low))
-							mini_tokenadd_back(&nt, mini_tokennew(mini_strdup(low)));
+							mini_tokenadd_back(&nt,
+								mini_tokennew(mini_strdup(low), OTHER));
 						else
-							mini_tokenadd_back(&nt, mini_tokennew(mini_strdup(tab[i])));
+							mini_tokenadd_back(&nt,
+								mini_tokennew(mini_strdup(tab[i]), OTHER));
 						free(low);
 					}
 					else
-						mini_tokenadd_back(&nt, mini_tokennew(mini_strdup(tab[i])));
+						mini_tokenadd_back(&nt,
+							mini_tokennew(mini_strdup(tab[i]), OTHER));
 					i++;
 				}
 				freetab(tab);
