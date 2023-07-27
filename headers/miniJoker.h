@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:22:54 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/22 15:41:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/24 14:08:32 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	exit_minijoker(t_minijoker *mini, char *str);
 char	*get_env(t_minijoker *mini, char *str);
 int		true_exec(t_minijoker *mini, int i);
 void	mini_exec(t_minijoker *mini);
-void	freetab(char **tab);
+char	*freetab(char **tab);
 int		exec_loop(t_minijoker *mini);
 int		remove_encapsuled(t_minijoker *mini);
 void	redirection(t_minijoker *mini);

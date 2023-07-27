@@ -13,6 +13,7 @@ FILES = listener \
 		mini/mini_export \
 		mini/mini_unset \
 		mini/mini_cd \
+		mini/mini_pwd \
 		redirection \
 		mini_pipe \
 		main
@@ -24,11 +25,11 @@ FS = -fsanitize=address -g
 
 CFLAGS = -Iheaders -I/Users/dgoubin/.brew/opt/readline/include/ -Werror -Wextra -Wall
 
-GFLAGS = -Iheaders $(LIB) -lreadline -I/Users/dgoubin/.brew/opt/readline/include/readline/ -L/Users/dgoubin/.brew/opt/readline/lib -Werror -Wextra -Wall
+GFLAGS = -Iheaders $(LIB) -lreadline -L/Users/dgoubin/.brew/opt/readline/lib -Werror -Wextra -Wall
 
 all: $(NAME)
 r: re
-	./minijoker
+	./$(NAME)
 
 $(NAME): $(LIB) $(OBJ)
 	@printf "> \x1b[32mAll objects compiled\x1b[0m\n"

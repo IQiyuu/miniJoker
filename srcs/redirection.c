@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:37 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/22 15:44:35 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/25 16:05:13 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	open_redirection(t_minijoker *mini)
 
 	if (mini_strcmp(mini->tokens->prev->content, "<", 0) == 0)
 		flag = O_RDONLY;
-	if (mini_strcmp(mini->tokens->prev->content, ">", 0) == 0)
+	else if (mini_strcmp(mini->tokens->prev->content, ">", 0) == 0)
 		flag = O_WRONLY | O_CREAT | O_TRUNC;
-	if (mini_strcmp(mini->tokens->prev->content, ">>", 0) == 0)
+	else if (mini_strcmp(mini->tokens->prev->content, ">>", 0) == 0)
 		flag = O_WRONLY | O_CREAT | O_APPEND;
 	else
 	{
@@ -138,7 +138,7 @@ void	redirection(t_minijoker *mini)
 	if (!mini->error)
 	{
 		mini->tokens = mini_tokenfirst(mini->tokens);
-		if (mini_tokenfind(mini->tokens, '|', 1))
+		if (mini_tokenfindchar(mini->tokens, '|', 1))
 			mini_pipe(mini);
 		else
 			exec_loop(mini);

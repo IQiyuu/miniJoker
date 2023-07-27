@@ -101,11 +101,6 @@ ROBIN PARTS => A FAIRE
 22/07:
     dans le execve lui envoyer env_cpy;
 
-TESTS: ERRORS A CORRIGES
-
-
-
-
 MSH
    .    . 	  __________   __   __ \n
   /	 \/  \   |   _______| |  | |  |\n
@@ -120,3 +115,66 @@ TCHOUTCHOU
   TS__[O]|_|__|_|  _|_|_  |_||_|   _|_|_   _\__/   \___/   |_\_\   \___|   _|_|_  
  {======|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
 ./o--000'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'
+
+
+TESTS:   ✖️     ✖️
+    echo                                                         ✔
+    echo oui                                                     ✔
+    echo -n oui                                                  ✔
+    echo "-n oui"                                                ✔
+    echo oui -n                                                  ✔
+    echo "oui je suis la"non lol                                 ✔
+    echo -n"lol"                                                 ✔
+
+    pwd                                                          ✔
+    pwd -caca                                                    ?
+    pwd lol                                                      ✔
+
+    env                                                          ✔
+    env a=b                                                      ✖️ s affiche pas 
+    env a=b c=d d=d e=e                                          ✖️ ''
+
+    export                                                       ✖️ pas trie
+    export a=b                                                   ✔
+    export a=b c=d d=d e=e                                       ✖️ met que le premier
+    export .=gs                                                  ✖️ pas d erreur
+    export 2=a                                                   ✖️
+    export a2=a                                                  ✖️
+
+    unset                                                        ✔
+    unset a                                                      ✔
+    unset a=b                                                    ✖️
+    unset a b c                                                  ✔ 
+    unset .                                                      ✖️
+    unset 2                                                      ✖️
+    unset a2                                                     ✖️
+
+    exit                                                         ✔
+    exit 1                                                       ✖️ doit exit avec le code 1
+    exit oui                                                     ✖️ doit exit avec une erreur
+
+    cd                                                           ✔
+    cd ..                                                        ✔
+    cd DOSSIER                                                   ✔
+    cd FILE                                                      ✔
+    cd exec                                                      ✔
+
+    CTRL + C                                                     ✖️ affiche ^C
+    CTRL + \                                                     ✔
+    CTRL + D                                                     ✔
+
+    cmd > file                                                   ✔
+    cmd > file > file                                            ✔
+    cmd > file param                                             ✔
+    cmd param > file                                             ✔
+    cmd param > file param                                       ✔
+    cmd < file                                                   ✔
+    cmd param < file > file                                      ✔
+    cmd > file < file                                            ✔
+    cmd >> file                                                  ✔
+    cmd >> file >> file                                          ✔
+    cmd > file >> file                                           ✔
+    cmd < file >> file > file                                    ✔
+    cmd < file > file >> file                                    ✔
+    cmd << DEL                                                   ✔
+    cmd << DEL param                                             ✔

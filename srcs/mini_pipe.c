@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:29:23 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/22 15:41:43 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/25 16:05:22 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	mini_pipe(t_minijoker *mini)
 			if (mini->tokens)
 				mini->tokens = mini->tokens->next;
 		}
-		if (mini_tokenfind(mini->tokens, '|', 1))
+		if (mini_tokenfindchar(mini->tokens, '|', 1))
 			mini_pipe(mini);
 		else if (mini->tokens)
 			exec_loop(mini);

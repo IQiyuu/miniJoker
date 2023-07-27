@@ -6,20 +6,16 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:23:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/22 15:01:32 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/24 16:51:14 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-/* FONCTION BOUCLE INFINI QUI LIT LES INPUT DE L'UTILISATEUR */
-/* */
-/* prend en argument t_minijoker */
-/* */
-/* renvoie rien */
+
 void	listen(t_minijoker *mini)
 {
-	char	*str;
+	char *str;
 
 	while (1)
 	{

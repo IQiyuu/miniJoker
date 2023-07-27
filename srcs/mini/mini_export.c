@@ -6,11 +6,20 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:24:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/20 12:40:23 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/25 15:24:35 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
+
+static char	**exit_export(char **tmp, char *var)
+{
+	if (var)
+		free(var);
+	mini_freetab(tmp);
+	mini_putstr_fd(2, "export: malloc failed");
+	return (NULL);
+}
 
 static char	**copy_tab(t_minijoker *mini, char **str, int i)
 {
@@ -24,10 +33,14 @@ static char	**copy_tab(t_minijoker *mini, char **str, int i)
 	while (mini->env_copy[i])
 	{
 		var = mini_cut_to(mini->env_copy[i], '=');
+		if (!var)
+			return (exit_export(tmp, var));
 		if (mini_strcmp(var, str[0], 0) == 0)
 			tmp[i] = mini_strdup(mini->tokens->content);
 		else
 			tmp[i] = mini_strdup(mini->env_copy[i]);
+		if (!tmp[i])
+			return (exit_export(tmp, var));
 		free(var);
 		i++;
 	}
@@ -37,9 +50,6 @@ static char	**copy_tab(t_minijoker *mini, char **str, int i)
 	return (tmp);
 }
 
-/* Gestion de la fonction export  */
-/* prend mini en argument pour les token */
-/* renvoie 1 si elle réussi */
 void	mini_export(t_minijoker *mini)
 {
 	char	**str;
@@ -53,10 +63,7 @@ void	mini_export(t_minijoker *mini)
 	{
 		i = 0;
 		while (mini->env_copy[i])
-		{
-			printf("%s\n", mini->env_copy[i]);
-			i++;
-		}
+			printf("%s\n", mini->env_copy[i++]);
 		return ;
 	}
 	str = mini_ft_split(mini->tokens->content, '=');
@@ -67,10 +74,7 @@ void	mini_export(t_minijoker *mini)
 		return ;
 	}
 	if (!str[0])
-	{
-		mini_freetab(str);
-		return ;
-	}
+		return (mini_freetab(str));
 	if (mini->tokens->content[0] == '=')
 	{
 		mini_putstr_fd(2, "export: `");
@@ -83,11 +87,7 @@ void	mini_export(t_minijoker *mini)
 		i++;
 	tmp = copy_tab(mini, str, i);
 	if (!tmp)
-	{
-		mini->error = MALLOC_ERROR;
-		mini_putstr_fd(2, "export: malloc failed");
 		return ;
-	}
 	mini_freetab(mini->env_copy);
 	mini->env_copy = tmp;
 	mini_freetab(str);

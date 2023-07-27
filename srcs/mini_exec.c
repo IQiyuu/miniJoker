@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:23:12 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/20 13:56:07 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/25 13:42:55 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ void	mini_exec(t_minijoker *mini)
 		mini_export(mini);
 	else if (mini_strcmp(mini->tokens->content, "env", 0) == 0)
 		mini->error = mini_env(mini);
+	else if (mini_strcmp(mini->tokens->content, "pwd", 0) == 0)
+		mini->error = mini_pwd();
 }
