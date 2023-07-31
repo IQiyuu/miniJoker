@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:37 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/25 16:05:13 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/31 13:52:15 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,20 @@ void	open_redirection(t_minijoker *mini)
 	int	fd;
 	int	flag;
 
+	flag = 0;
 	if (mini_strcmp(mini->tokens->prev->content, "<", 0) == 0)
 		flag = O_RDONLY;
 	else if (mini_strcmp(mini->tokens->prev->content, ">", 0) == 0)
 		flag = O_WRONLY | O_CREAT | O_TRUNC;
 	else if (mini_strcmp(mini->tokens->prev->content, ">>", 0) == 0)
 		flag = O_WRONLY | O_CREAT | O_APPEND;
-	else
+	else if (mini_strcmp(mini->tokens->prev->content, "<<", 0) == 0)
 	{
 		here_doc(mini);
 		return ;
 	}
+	else 
+		return ;
 	if (mini->redir_fd != -1)
 		fd = mini->redir_fd;
 	mini->redir_fd = open(mini->tokens->content, flag, 0777);

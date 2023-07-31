@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_strcmp.c                                      :+:      :+:    :+:   */
+/*   mini_alpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 11:01:40 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/31 13:58:48 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/31 16:15:29 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/31 16:19:10 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
-#include <stdio.h>
 
-int	mini_strcmp(char *s1, char *s2, int ended)
+int mini_alpha(char c)
 {
-	int	i;
+    return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
 
-	if (!s1)
-		return (-1);
-	i = -1;
-	while (s1[++i] && s2[i])
-		if (s1[i] != s2[i])
-			break ;
-	if (ended && s1[i] == '\0')
-		return (0);
-	return (s1[i] - s2[i]);
+int mini_alphanum(char c)
+{
+    return (mini_alpha(c) || (c >= '0' && c <= '9'));
 }

@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:05:53 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/22 15:33:58 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/31 14:02:38 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int	stris_encapsuled(char *str)
 	}
 	return (quote == '\0');
 }
-
+#include <stdio.h>
 t_token	*mini_split(char *str, char **charset, int *error)
 {
 	char	*content;
@@ -171,8 +171,8 @@ t_token	*mini_split(char *str, char **charset, int *error)
 	ij[1] = 0;
 	while (ij[0] < size)
 	{
-		if (!mini_strcmp(&str[ij[1]], " '|'", 1)
-			|| !mini_strcmp(&str[ij[1]], " \"|\"", 1))
+		if (!mini_strcmp(" '|'", &str[ij[1]], 1)
+			|| !mini_strcmp(" \"|\"", &str[ij[1]], 1))
 			plop = PARAM;
 		else
 			plop = OTHER;

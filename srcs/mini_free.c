@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:53:42 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/24 14:11:14 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/31 17:13:18 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ char	*freetab(char **tab)
 
 void	exit_minijoker(t_minijoker *mini, char *str)
 {
+	int	error;
+	int	i;
+
+	i = 0;
+	error = mini->error;
+	if (mini->tokens && mini->tokens->next)
+	{
+		while (mini->tokens->next->content[i])
+		error = mini_atoi(mini->tokens->next->content);
+	}
 	freetab(mini->env_copy);
 	free(mini->env_copy);
 	if (mini->tokens)
@@ -34,5 +44,5 @@ void	exit_minijoker(t_minijoker *mini, char *str)
 	rl_clear_history();
 	//system("leaks minijoker");
 	write(1, "exit\n", 5);
-	exit(EXIT_SUCCESS);
+	exit(error);
 }

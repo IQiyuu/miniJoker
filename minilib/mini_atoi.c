@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_strcmp.c                                      :+:      :+:    :+:   */
+/*   mini_atoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 11:01:40 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/31 13:58:48 by dgoubin          ###   ########.fr       */
+/*   Created: 2023/07/31 17:10:24 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/07/31 17:10:59 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
-#include <stdio.h>
 
-int	mini_strcmp(char *s1, char *s2, int ended)
+int	mini_atoi(const char *str)
 {
-	int	i;
+	int	res;
+	int	minus;
 
-	if (!s1)
-		return (-1);
-	i = -1;
-	while (s1[++i] && s2[i])
-		if (s1[i] != s2[i])
-			break ;
-	if (ended && s1[i] == '\0')
-		return (0);
-	return (s1[i] - s2[i]);
+	res = 0;
+	minus = 1;
+	while (*str == 32 || *str == 9 || *str == 10 || *str == 12 || *str == 13
+		|| *str == 11)
+		str++;
+	if (*str == '-' || *str == '+')
+		if (*(str++) == '-')
+			minus = -1;
+	while (*str >= '0' && *str <= '9')
+		res = (res * 10) + *(str++) - '0';
+	return (res * minus);
 }

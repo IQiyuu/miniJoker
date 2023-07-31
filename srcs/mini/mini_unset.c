@@ -6,25 +6,39 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 17:41:59 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/25 16:04:56 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/31 16:21:34 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-static char	**exit_unset(char **new_env, char *var)
+static int	not_valid(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	if (!mini_alpha(str[0]))
+		return (0);
+	i = 0;
+	while (str[i])
+		if (!mini_alphanum(str[i++]))
+			return (0);
+	if (mini_charfind(str, '=') > mini_strlen(str))
+		return (0);
+	return (1);
+}
+
+static char	**exit_unset(char **new_env)
 {
 	mini_putstr_fd(2, "malloc faillure\n");
 	mini_freetab(new_env);
-	if (var)
-		free(var);
 	return (NULL);
 }
 
-static char	**copy_tab(t_minijoker *mini, int i)
+static char	**copy_tab(t_minijoker *mini, int i, int j)
 {
 	char	**new_env;
-	char	*var;
 
 	new_env = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!new_env)
@@ -32,24 +46,16 @@ static char	**copy_tab(t_minijoker *mini, int i)
 	i = -1;
 	while (mini->env_copy[++i])
 	{
-		var = mini_cut_to(mini->env_copy[i], '=');
-		if (!var)
-			return (exit_unset(new_env, NULL));
-		if (mini_tokenfindstr(mini->tokens, var) == 0)
+		if (mini_tokenfindstr(mini->tokens, mini->env_copy[i]) == 0)
 		{
-			new_env[i] = mini_strdup(mini->env_copy[i]);
-			if (!new_env[i])
-				return (exit_unset(new_env, var));
+			new_env[j] = mini_strdup(mini->env_copy[i]);
+			if (!new_env[j++])
+				return (exit_unset(new_env));
 		}
-		free(var);
 	}
 	while (mini->tokens && !mini_is_intab(mini->sep, mini->tokens->content, 0))
-	{
-		if (get_env(mini, mini->tokens->content) != NULL)
-			i--;
 		mini->tokens = mini->tokens->next;
-	}
-	new_env[i] = NULL;
+	new_env[j] = NULL;
 	return (new_env);
 }
 
@@ -75,9 +81,15 @@ void	mini_unset(t_minijoker *mini)
 	{
 		if (get_env(mini, tmp->content) != NULL)
 			i--;
+		else if (!not_valid(tmp->content))
+		{
+			mini_putstr_fd(2, "unset: `");
+			mini_putstr_fd(2, tmp->content);
+			mini_putstr_fd(2, "': not a valid identifier\n");
+		}
 		tmp = tmp->next;
 	}
-	new_env = copy_tab(mini, i);
+	new_env = copy_tab(mini, i, 0);
 	if (!new_env)
 		return ;
 	mini_freetab(mini->env_copy);

@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:23:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/25 16:05:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/07/31 17:10:52 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void	*mini_calloc(size_t count, size_t size);
 void	mini_bzero(void *s, size_t n);
 char	*mini_tolower(char *str);
 void	mini_tokendelone(t_token **tokens);
-int	mini_tokenfindchar(t_token *tokens,
+int		mini_tokenfindchar(t_token *tokens,
 			char c, int plop);
-int	mini_tokenfindstr(t_token *tokens, char *str);
+int		mini_tokenfindstr(t_token *tokens, char *str);
+int 	mini_alpha(char c);
+int 	mini_alphanum(char c);
+int		mini_atoi(const char *str);
 
 /* tokens */
 void	mini_tokenclear(t_token *lst);

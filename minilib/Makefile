@@ -27,7 +27,9 @@ FILES = mini_charfind \
 	mini_bzero \
 	mini_tolower \
 	mini_tokendelone \
-	mini_tokenfind
+	mini_tokenfind \
+	mini_alpha \
+	mini_atoi
 
 S = $(foreach f, $(FILES), $(f).c)
 OBJ = $(S:.c=.o)

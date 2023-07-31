@@ -131,23 +131,26 @@ TESTS:   ✖️     ✖️
     pwd lol                                                      ✔
 
     env                                                          ✔
-    env a=b                                                      ✖️ s affiche pas 
-    env a=b c=d d=d e=e                                          ✖️ ''
+    env a=b                                                      ✔
+    env a=b a=b                                                  ✖️ s afiche 2x
+    env a=b c=d d=d e=e                                          ✔
 
     export                                                       ✖️ pas trie
     export a=b                                                   ✔
     export a=b c=d d=d e=e                                       ✖️ met que le premier
     export .=gs                                                  ✖️ pas d erreur
     export 2=a                                                   ✖️
-    export a2=a                                                  ✖️
+    export a2=a                                                  ✔
+    export =a                                                    ✔
 
     unset                                                        ✔
     unset a                                                      ✔
-    unset a=b                                                    ✖️
-    unset a b c                                                  ✔ 
-    unset .                                                      ✖️
-    unset 2                                                      ✖️
-    unset a2                                                     ✖️
+    unset =                                                      ✔
+    unset a=b                                                    ✔
+    unset a b c                                                  ✔
+    unset .                                                      ✔
+    unset 2                                                      ✔
+    unset a2                                                     ✔
 
     exit                                                         ✔
     exit 1                                                       ✖️ doit exit avec le code 1
