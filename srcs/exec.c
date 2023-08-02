@@ -6,21 +6,19 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:36:25 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/07/31 16:23:27 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/02 15:44:23 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-int	mini_tlen(char **sep, t_token *tokens)
+static int	mini_tlen(char **sep, t_token *tokens)
 {
 	int	size;
 
 	size = 0;
 	while (tokens)
 	{
-		if (mini_is_intab(sep, tokens->content, 1) && tokens->content[0] != '|')
-			tokens = tokens->next->next;
 		if (!tokens || (mini_is_intab(sep, tokens->content, 1)
 				&& tokens->content[0] == '|'))
 			break ;
@@ -33,7 +31,7 @@ int	mini_tlen(char **sep, t_token *tokens)
 	return (size);
 }
 
-char	**mini_link(char **sep, t_token *tokens)
+static char	**mini_link(char **sep, t_token *tokens)
 {
 	char	**arg;
 	int		i;
@@ -42,8 +40,6 @@ char	**mini_link(char **sep, t_token *tokens)
 	arg = (char **)malloc(sizeof(char *) * (mini_tlen(sep, tokens) + 1));
 	while (tokens)
 	{
-		if (mini_is_intab(sep, tokens->content, 1) && tokens->content[0] != '|')
-			tokens = tokens->next->next;
 		if (!tokens || (mini_is_intab(sep, tokens->content, 1)
 				&& tokens->content[0] == '|'))
 			break ;
