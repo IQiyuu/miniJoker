@@ -21,6 +21,33 @@ static char	**exit_export(char **tmp, char *var)
 	return (NULL);
 }
 
+static void	print_sorted(char **env)
+{
+	int	i;
+	int	j;
+	char	**closed;
+	char	*low;
+
+	i = 0;
+	closed = (char **)malloc(sizeof(char *) * (mini_tablen(env) + 1));
+	closed[i] = NULL;
+	while (i < mini_tablen(env))
+	{
+		j = 0;
+		low = NULL;
+		while (env[j])
+		{
+			if (!mini_is_intab(closed, env[j], 0) && (low == NULL || mini_strcmp(low, env[j], 0) > 0))
+				low = env[j];
+			j++;
+		}
+		closed[i++] = low;
+		closed[i] = NULL;
+		printf("%s\n", low);
+	}
+	free(closed);
+}
+
 static char	**copy_tab(t_minijoker *mini, char **str, int i)
 {
 	char	**tmp;
@@ -61,9 +88,7 @@ void	mini_export(t_minijoker *mini)
 	if (!mini->tokens || !mini->tokens->content
 		|| mini_is_intab(mini->sep, mini->tokens->content, 1))
 	{
-		i = 0;
-		while (mini->env_copy[i])
-			printf("%s\n", mini->env_copy[i++]);
+		print_sorted(mini->env_copy);
 		return ;
 	}
 	str = mini_ft_split(mini->tokens->content, '=');
