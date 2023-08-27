@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:53:42 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/08/27 22:19:26 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/27 23:46:41 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	exit_minijoker(t_minijoker *mini, char *str)
 
 	i = 0;
 	error = mini->error;
+	if (error == END)
+		error = SUCCESS;
 	if (mini->tokens && mini->tokens->next)
 	{
 		while (mini->tokens->next->content[i])
