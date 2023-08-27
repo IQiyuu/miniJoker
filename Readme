@@ -139,6 +139,7 @@ TESTS:   ✖️     ✖️
     export                                                       ✔
     export a=b                                                   ✔
     export a=b c=d d=d e=e                                       ✖️ met que le premier
+    export a=a a=b                                               ✖️ doit ecrire le dernier
     export .=gs                                                  ✖️ pas d erreur
     export 2=a                                                   ✖️
     export a2=a                                                  ✔
