@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:36:25 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/08/02 15:44:23 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/27 23:43:25 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ int	true_exec(t_minijoker *mini, int i)
 		return (FORK_ERROR);
 	if (pid == 0)
 	{
+		if (get_env(mini, "PATH") == NULL || mini_strcmp(get_env(mini, "PATH"), "", 0) == 0)
+		{
+			printf("%s: No such file or directory\n", mini->tokens->content);
+			exit(UNKNOW_COMMAND);
+		}
 		path = mini_ft_split(get_env(mini, "PATH"), ':');
 		i = 0;
 		while (path[i])
@@ -90,7 +95,6 @@ int	true_exec(t_minijoker *mini, int i)
 		}
 		if (!mini->tokens->content)
 			return (ARG_NUMBER);
-		printf("%s: command not found\n", mini->tokens->content);
 		exit(UNKNOW_COMMAND);
 	}
 	wait(&status);

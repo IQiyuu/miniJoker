@@ -183,3 +183,6 @@ TESTS:   ✖️     ✖️
     cmd < file > file >> file                                    ✔
     cmd << DEL                                                   ✔
     cmd << DEL param                                             ✔
+
+    unset HOME ==> cd                                            ✔ si unset HOME cd = HOME not set
+    unset PATH ==> ls                                            ✔ si unset PATH ls = ls : not such file or directory
