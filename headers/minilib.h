@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:23:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/31 17:10:52 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/27 22:47:17 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_env
+{
+	char *var;
+	char *val;
+	struct s_env * next;
+} t_env;
 
 enum e_plop	{PARAM,
 	OTHER};

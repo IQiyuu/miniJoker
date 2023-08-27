@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:22:54 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/24 14:08:32 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/25 22:35:32 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <fcntl.h>
 
 # ifndef PROMPT
-#  define PROMPT "\x1b[30mmini\x1b[31mJoker\x1b[0m> "
+#  define PROMPT "\x1b[38;2;100;100;100mmini\x1b[31mJoker\x1b[0m> "
 # endif
 
 typedef struct s_minijoker {

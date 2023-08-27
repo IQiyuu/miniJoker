@@ -132,10 +132,11 @@ TESTS:   ✖️     ✖️
 
     env                                                          ✔
     env a=b                                                      ✔
-    env a=b a=b                                                  ✖️ s afiche 2x
+    env a=b a=b                                                  ✔
     env a=b c=d d=d e=e                                          ✔
+    env a=                                                       ✖️
 
-    export                                                       ✖️ pas trie
+    export                                                       ✔
     export a=b                                                   ✔
     export a=b c=d d=d e=e                                       ✖️ met que le premier
     export .=gs                                                  ✖️ pas d erreur
