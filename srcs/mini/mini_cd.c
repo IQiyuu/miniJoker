@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:50:26 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/22 15:45:43 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/27 23:26:29 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	mini_cd(t_minijoker *mini)
 	mini->tokens = mini->tokens->next;
 	if (!mini->tokens
 		|| mini_strcmp(mini->tokens->content, "~", 0) == 0)
+		{
+		if (get_env(mini, "HOME") == NULL)
+			mini_putstr_fd(2, "cd: HOME not found\n");
 		chdir(get_env(mini, "HOME"));
+		}
 	else if (chdir(mini->tokens->content) == -1)
 	{
 		path = getcwd(NULL, 0);
