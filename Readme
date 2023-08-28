@@ -125,6 +125,8 @@ TESTS:   ✖️     ✖️
     echo oui -n                                                  ✔
     echo "oui je suis la"non lol                                 ✔
     echo -n"lol"                                                 ✔
+    echo "'$USER'"                                               ✖️ (parsing) attendu : '$USER'
+    edcho '"$USER"'                                              ✖️ (parsing) attendu : "dgoubin"
 
     pwd                                                          ✔
     pwd -caca                                                    ?
