@@ -16,9 +16,6 @@ parsing:
     echo oui>test ✔
     echo oui>|test ✔
     echo oui|>test ✔
-    echo oui>>|test ✖️
-    echo oui<|test ✖️
-    echo oui>><test ✖️
 
 redirection (simple): redirige la sortie standard
     echo oui > test => redirige dans test
