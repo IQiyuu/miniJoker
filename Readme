@@ -125,18 +125,15 @@ TESTS:   ✖️     ✖️
     echo oui -n                                                  ✔
     echo "oui je suis la"non lol                                 ✔
     echo -n"lol"                                                 ✔
-    echo "'$USER'"                                               ✖️ (parsing) attendu : '$USER'
-    edcho '"$USER"'                                              ✖️ (parsing) attendu : "dgoubin"
 
     pwd                                                          ✔
-    pwd -caca                                                    ?
     pwd lol                                                      ✔
 
     env                                                          ✔
     env a=b                                                      ✔
     env a=b a=b                                                  ✔
     env a=b c=d d=d e=e                                          ✔
-    env a=                                                       ✖️
+    env a=                                                       ✔
 
     export                                                       ✔
     export a=b                                                   ✔
@@ -157,8 +154,8 @@ TESTS:   ✖️     ✖️
     unset a2                                                     ✔
 
     exit                                                         ✔
-    exit 1                                                       ✖️ doit exit avec le code 1
-    exit oui                                                     ✖️ doit exit avec une erreur
+    exit 1                                                       ✔
+    exit oui                                                     ✔
 
     cd                                                           ✔
     cd ..                                                        ✔
@@ -166,7 +163,7 @@ TESTS:   ✖️     ✖️
     cd FILE                                                      ✔
     cd exec                                                      ✔
 
-    CTRL + C                                                     ✖️ affiche ^C
+    CTRL + C                                                     ✔
     CTRL + \                                                     ✔
     CTRL + D                                                     ✔
 
