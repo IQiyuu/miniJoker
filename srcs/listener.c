@@ -6,16 +6,15 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:23:21 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/07/24 16:51:14 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/31 14:04:37 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-
 void	listen(t_minijoker *mini)
 {
-	char *str;
+	char	*str;
 
 	while (1)
 	{
@@ -26,14 +25,15 @@ void	listen(t_minijoker *mini)
 		if (!str)
 			exit_minijoker(mini, NULL);
 		parser(mini, str);
+		mini->first = mini->tokens;
 		if (mini->tokens)
 		{
-			if (mini->error == END)
+			if (mini->end == 1)
 				exit_minijoker(mini, str);
 			if (mini->error != QUOTE_ERROR)
 				redirection(mini);
 			add_history(str);
-			mini_tokenclear(mini->tokens);
+			mini_tokenclear(mini->first);
 			mini->tokens = NULL;
 		}
 		free(str);

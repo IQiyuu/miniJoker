@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:23:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/08/27 22:47:17 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/31 14:32:28 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@
 
 typedef struct s_env
 {
-	char *var;
-	char *val;
-	struct s_env * next;
-} t_env;
+	char			*var;
+	char			*val;
+	struct s_env	*next;
+}	t_env;
 
 enum e_plop	{PARAM,
 	OTHER};
 	enum e_errors {SUCCESS,
+	FAILURE,
 	ARG_NUMBER,
 	END,
 	MALLOC_ERROR,
@@ -37,7 +38,8 @@ enum e_plop	{PARAM,
 	UNKNOW_ERROR,
 	FILE_NOT_FOUND,
 	OPEN_ERROR,
-	FORK_ERROR};
+	FORK_ERROR,
+	NUM_ARG};
 	typedef struct s_token {
 		char *content;
 	int altego;
@@ -46,6 +48,9 @@ enum e_plop	{PARAM,
 } t_token;
 
 t_token	*mini_split(char *str, char **charset, int *error);
+int		mini_len(char *str, char **charset, int i);
+char	*ministrdup(char *str, char **charset, int	*i);
+t_token	*quit(t_token *tokens);
 char	**mini_ft_split(char *str, char c);
 int		mini_tablen(char **tab);
 int		mini_strlen(char *str);
@@ -70,10 +75,15 @@ void	mini_tokendelone(t_token **tokens);
 int		mini_tokenfindchar(t_token *tokens,
 			char c, int plop);
 int		mini_tokenfindstr(t_token *tokens, char *str);
-int 	mini_alpha(char c);
-int 	mini_alphanum(char c);
+int		mini_alpha(char c);
+int		mini_alphanum(char c);
 int		mini_atoi(const char *str);
+int		mini_has_alpha(char *str);
 
+void	mini_ft_lst_add_back(t_env **lst, char *var, char *val);
+t_env	*mini_ft_lst_last(t_env *env);
+t_env	*mini_ft_lst_new(char *var, char *val);
+void	mini_ft_lst_clear(t_env *env);
 /* tokens */
 void	mini_tokenclear(t_token *lst);
 t_token	*mini_tokenlast(t_token *lst);

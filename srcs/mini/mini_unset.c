@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 17:41:59 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/31 16:21:34 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/31 14:32:44 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,25 @@ static char	**copy_tab(t_minijoker *mini, int i, int j)
 	return (new_env);
 }
 
+static void	mini_unset_bis(t_minijoker *mini, t_token *tmp, int *i)
+{
+	while (tmp && !mini_is_intab(mini->sep, tmp->content, 0))
+	{
+		if (get_env_bis(mini, tmp->content) != NULL)
+		{
+			printf("%s\n", tmp->content);
+			(*i)--;
+		}
+		else if (!not_valid(tmp->content))
+		{
+			mini_putstr_fd(2, "unset: `");
+			mini_putstr_fd(2, tmp->content);
+			mini_putstr_fd(2, "': not a valid identifier\n");
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	mini_unset(t_minijoker *mini)
 {
 	char	**new_env;
@@ -77,18 +96,7 @@ void	mini_unset(t_minijoker *mini)
 	}
 	i = mini_tablen(mini->env_copy);
 	tmp = mini->tokens;
-	while (tmp && !mini_is_intab(mini->sep, tmp->content, 0))
-	{
-		if (get_env(mini, tmp->content) != NULL)
-			i--;
-		else if (!not_valid(tmp->content))
-		{
-			mini_putstr_fd(2, "unset: `");
-			mini_putstr_fd(2, tmp->content);
-			mini_putstr_fd(2, "': not a valid identifier\n");
-		}
-		tmp = tmp->next;
-	}
+	mini_unset_bis(mini, tmp, &i);
 	new_env = copy_tab(mini, i, 0);
 	if (!new_env)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:15:17 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/08/25 22:34:32 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/31 12:09:25 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 void	print_train(void)
 {
-	printf("\x1b[37m          \x1b[38;2;100;100;100m__  __     _               _      ");
+	printf("\x1b[37m          \x1b[38;2;100;100;100m__  ");
+	printf("__     _               _      ");
 	printf("\x1b[31m   _            _                     \x1b[0m\n");
-	printf("\x1b[37m    o O O\x1b[38;2;100;100;100m|  \\/  |   (_)    _ _      (_)    ");
+	printf("\x1b[37m    o O O\x1b[38;2;100;100;100m|  \\/  |   (_)    _ _");
+	printf("      (_)    ");
 	printf("\x1b[31m _ | |   ___    | |__    ___      _ _  \x1b[0m\n");
-	printf("\x1b[37m   o     \x1b[38;2;100;100;100m| |\\/| |   | |   | ' \\     | |  \x1b[31m");
+	printf("\x1b[37m   o     \x1b[38;2;100;100;100m| |\\/| |   | |   | ' \\");
+	printf("     | |  \x1b[31m");
 	printf("  | || |  / _ \\   | / /   / -_)    | '_|\x1b[0m\n");
-	printf("\x1b[37m  TS__[O]\x1b[38;2;100;100;100m|_|__|_|  _|_|_  |_||_|   _|_|_   ");
+	printf("\x1b[37m  TS__[O]\x1b[38;2;100;100;100m|_|__|_|  ");
+	printf("_|_|_  |_||_|   _|_|_   ");
 	printf("\x1b[31m_\\__/   \\___/   |_\\_\\   \\___|   _|_|_  \x1b[0m\n");
 	printf("\x1b[37m {======|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"");
 	printf("\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| \x1b[0m\n");
@@ -44,6 +48,7 @@ void	mini_init(t_minijoker *mini, char *env[])
 	mini->env_copy[i] = NULL;
 	mini->fdin = 0;
 	mini->fdout = 1;
+	mini->end = 0;
 	mini->sep[0] = "|";
 	mini->sep[1] = "<<";
 	mini->sep[2] = ">>";
@@ -59,6 +64,7 @@ int	main(int ac, char *av[], char **env)
 	t_minijoker	mini;
 
 	(void)av;
+	rl_catch_signals = 0;
 	mini.error = SUCCESS;
 	if (ac != 1)
 	{

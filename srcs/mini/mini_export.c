@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:24:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/25 15:24:35 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/08/31 14:08:00 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static char	**exit_export(char **tmp, char *var)
 
 static void	print_sorted(char **env)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**closed;
 	char	*low;
 
@@ -37,7 +37,8 @@ static void	print_sorted(char **env)
 		low = NULL;
 		while (env[j])
 		{
-			if (!mini_is_intab(closed, env[j], 0) && (low == NULL || mini_strcmp(low, env[j], 0) > 0))
+			if (!mini_is_intab(closed, env[j], 0)
+				&& (low == NULL || mini_strcmp(low, env[j], 0) > 0))
 				low = env[j];
 			j++;
 		}
@@ -77,32 +78,16 @@ static char	**copy_tab(t_minijoker *mini, char **str, int i)
 	return (tmp);
 }
 
-void	mini_export(t_minijoker *mini)
+static void	mini_export_bis(t_minijoker *mini, char **str)
 {
-	char	**str;
-	char	**tmp;
 	int		i;
+	char	**tmp;
 
-	mini->error = SUCCESS;
-	mini->tokens = mini->tokens->next;
-	if (!mini->tokens || !mini->tokens->content
-		|| mini_is_intab(mini->sep, mini->tokens->content, 1))
-	{
-		print_sorted(mini->env_copy);
-		return ;
-	}
-	str = mini_ft_split(mini->tokens->content, '=');
-	if (!str)
-	{
-		mini->error = MALLOC_ERROR;
-		mini_putstr_fd(2, "export: malloc failed");
-		return ;
-	}
 	if (!str[0])
 		return (mini_freetab(str));
 	if (mini->tokens->content[0] == '=')
 	{
-		mini_putstr_fd(2, "export: `");
+		mini_putstr_fd(2, "minijoker: export: `");
 		mini_putstr_fd(2, mini->tokens->content);
 		mini_putstr_fd(2, "': not a valid identifier\n");
 		mini->error = INPUT_ERROR;
@@ -117,4 +102,26 @@ void	mini_export(t_minijoker *mini)
 	mini->env_copy = tmp;
 	mini_freetab(str);
 	mini->tokens = mini->tokens->next;
+}
+
+void	mini_export(t_minijoker *mini)
+{
+	char	**str;
+
+	mini->error = SUCCESS;
+	mini->tokens = mini->tokens->next;
+	if (!mini->tokens || !mini->tokens->content
+		|| mini_is_intab(mini->sep, mini->tokens->content, 1))
+	{
+		print_sorted(mini->env_copy);
+		return ;
+	}
+	str = mini_ft_split(mini->tokens->content, '=');
+	if (!str)
+	{
+		mini->error = MALLOC_ERROR;
+		mini_putstr_fd(2, "minijoker: export: malloc failed\n");
+		return ;
+	}
+	mini_export_bis(mini, str);
 }
