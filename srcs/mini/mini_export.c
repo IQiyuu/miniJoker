@@ -6,20 +6,11 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:24:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/08/31 14:08:00 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/02 15:26:52 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
-
-static char	**exit_export(char **tmp, char *var)
-{
-	if (var)
-		free(var);
-	mini_freetab(tmp);
-	mini_putstr_fd(2, "export: malloc failed");
-	return (NULL);
-}
 
 static void	print_sorted(char **env)
 {
@@ -49,42 +40,36 @@ static void	print_sorted(char **env)
 	free(closed);
 }
 
-static char	**copy_tab(t_minijoker *mini, char **str, int i)
+static void	mini_lst_change(t_env **env, char *path)
 {
-	char	**tmp;
-	char	*var;
+	char	**split;
+	t_env	*tmp;
 
-	tmp = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!tmp)
-		return (NULL);
-	i = 0;
-	while (mini->env_copy[i])
+	split = mini_ft_split(path, '=');
+	tmp = *env;
+	while (tmp)
 	{
-		var = mini_cut_to(mini->env_copy[i], '=');
-		if (!var)
-			return (exit_export(tmp, var));
-		if (mini_strcmp(var, str[0], 0) == 0)
-			tmp[i] = mini_strdup(mini->tokens->content);
-		else
-			tmp[i] = mini_strdup(mini->env_copy[i]);
-		if (!tmp[i])
-			return (exit_export(tmp, var));
-		free(var);
-		i++;
+		if (mini_strcmp((tmp)->var, split[0], 0) == 0)
+		{
+			(tmp)->val = split[1];
+			return ;
+		}
+		tmp = (tmp)->next;
 	}
-	if (get_env(mini, str[0]) == NULL)
-		tmp[i++] = mini_strdup(mini->tokens->content);
-	tmp[i] = NULL;
-	return (tmp);
+	mini_ft_lst_add_back(env, split[0], split[1]);
+	free(split);
 }
 
-static void	mini_export_bis(t_minijoker *mini, char **str)
+static void	mini_export_bis(t_minijoker *mini)
 {
 	int		i;
 	char	**tmp;
+	t_env	*env = NULL;
+	t_env	*first;
+	char *str;
+	char *s1;
 
-	if (!str[0])
-		return (mini_freetab(str));
+	i = 0;
 	if (mini->tokens->content[0] == '=')
 	{
 		mini_putstr_fd(2, "minijoker: export: `");
@@ -92,22 +77,35 @@ static void	mini_export_bis(t_minijoker *mini, char **str)
 		mini_putstr_fd(2, "': not a valid identifier\n");
 		mini->error = INPUT_ERROR;
 	}
-	i = mini_tablen(mini->env_copy);
-	if (get_env(mini, str[0]) == NULL)
+	while (mini->env_copy[i])
+		mini_lst_change(&env, mini->env_copy[i++]);
+	while (mini->tokens && !mini_is_intab(mini->sep, mini->tokens->content, 0))
+	{
 		i++;
-	tmp = copy_tab(mini, str, i);
-	if (!tmp)
-		return ;
+		mini_lst_change(&env, mini->tokens->content);
+		mini->tokens = mini->tokens->next;
+	}
+	if (mini->tokens && !mini_is_intab(mini->sep, mini->tokens->content, 0))
+		mini->tokens = mini->tokens->next;
+	first = env;
+	tmp = (char **)malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (env)
+	{
+		s1 = mini_strjoin(env->var, "=");
+		str = mini_strjoin(s1, env->val);
+		tmp[i++] = str;
+		free(s1);
+		env = env->next;
+	}
+	tmp[i] = NULL;
 	mini_freetab(mini->env_copy);
 	mini->env_copy = tmp;
-	mini_freetab(str);
-	mini->tokens = mini->tokens->next;
+	free(first);
 }
 
 void	mini_export(t_minijoker *mini)
 {
-	char	**str;
-
 	mini->error = SUCCESS;
 	mini->tokens = mini->tokens->next;
 	if (!mini->tokens || !mini->tokens->content
@@ -116,12 +114,5 @@ void	mini_export(t_minijoker *mini)
 		print_sorted(mini->env_copy);
 		return ;
 	}
-	str = mini_ft_split(mini->tokens->content, '=');
-	if (!str)
-	{
-		mini->error = MALLOC_ERROR;
-		mini_putstr_fd(2, "minijoker: export: malloc failed\n");
-		return ;
-	}
-	mini_export_bis(mini, str);
+	mini_export_bis(mini);
 }
