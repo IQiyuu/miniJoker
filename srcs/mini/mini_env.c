@@ -46,18 +46,18 @@ int	egal(t_token *tokens)
 	return (0);
 }
 
-int	check_env(t_minijoker *mini)
+int	check_env(t_minijoker *mini, t_token *tokens)
 {
-	while (mini->tokens && !mini_is_intab(mini->sep, mini->tokens->content, 0))
+	while (tokens && !mini_is_intab(mini->sep, tokens->content, 0))
 	{
-		if (egal(mini->tokens) == 0)
+		if (egal(tokens) == 0)
 		{
 			mini_putstr_fd(2, "env: ");
-			mini_putstr_fd(2, mini->tokens->content);
+			mini_putstr_fd(2, tokens->content);
 			mini_putstr_fd(2, ": Invalid argument\n");
 			return (1);
 		}
-		mini->tokens = mini->tokens->next;
+		tokens = tokens->next;
 	}	
 	return (0);
 }
@@ -69,7 +69,7 @@ int	mini_env(t_minijoker *mini, int i)
 
 	env = NULL;
 	mini->tokens = mini->tokens->next;
-	if (check_env(mini) == 1)
+	if (check_env(mini, mini->tokens) == 1)
 		return (EXIT_FAILURE);
 	while (mini->env_copy[i])
 		mini_lst_change(&env, mini->env_copy[i++]);
