@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:53:42 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/08/31 13:59:05 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/02 15:06:36 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	exit_minijoker(t_minijoker *mini, char *str)
 		mini_tokenclear(mini->tokens);
 	free(str);
 	rl_clear_history();
-	system("leaks minijoker");
+	//system("leaks minijoker");
 	exit(error);
 }
