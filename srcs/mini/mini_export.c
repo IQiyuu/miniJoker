@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:24:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/09/04 21:01:35 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/05 22:01:44 by romartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	mini_lst_change(t_env **env, char *path)
 	free(split);
 }
 
-static void	mini_export_bis(t_minijoker *mini)
+void	mini_export_bis(t_minijoker *mini)
 {
 	int		i;
 	char	**tmp;
@@ -70,17 +70,63 @@ static void	mini_export_bis(t_minijoker *mini)
 	char *s1;
 
 	i = 0;
-	if (mini->tokens->content[0] == '=')
+	
+	if (mini->tokens->content[0] == '*')
 	{
-		mini_putstr_fd(2, "minijoker: export: `");
-		mini_putstr_fd(2, mini->tokens->content);
-		mini_putstr_fd(2, "': not a valid identifier\n");
-		mini->error = INPUT_ERROR;
+		 
 	}
 	while (mini->env_copy[i])
 		mini_lst_change(&env, mini->env_copy[i++]);
 	while (mini->tokens && !mini_is_intab(mini->sep, mini->tokens->content, 0))
 	{
+		if (mini->tokens->content[0] == '*')
+		{
+			mini_putstr_fd(2, "zsh: no matches found:");
+			mini_putstr_fd(2, mini->tokens->content);
+			mini_putstr_fd(2, "\n");
+			mini->error = INPUT_ERROR;
+			first = env;
+			tmp = (char **)malloc(sizeof(char *) * (i + 1));
+			i = 0;
+			while (env)
+			{
+				s1 = mini_strjoin(env->var, "=");
+				str = mini_strjoin(s1, env->val);
+				tmp[i++] = str;
+				free(s1);
+				env = env->next;
+			}
+		tmp[i] = NULL;
+		mini_freetab(mini->env_copy);
+		mini->env_copy = tmp;
+		free(first);
+		return ;
+		}
+		if ((mini->tokens->content[0] >= '0' && mini->tokens->content[0] <= '9') || mini_strlen(mini->tokens->content) > mini_charfind(mini->tokens->content, '.') || mini->tokens->content[0] == '=')
+		{
+			mini_putstr_fd(2, "export: `");
+			mini_putstr_fd(2, mini->tokens->content);
+			mini_putstr_fd(2, "' : not a valid identifier ");
+			
+			mini_putstr_fd(2, "\n");
+			mini->error = INPUT_ERROR;
+			first = env;
+			tmp = (char **)malloc(sizeof(char *) * (i + 1));
+			i = 0;
+			while (env)
+			{
+				s1 = mini_strjoin(env->var, "=");
+				str = mini_strjoin(s1, env->val);
+				tmp[i++] = str;
+				free(s1);
+				env = env->next;
+			}
+		tmp[i] = NULL;
+		mini_freetab(mini->env_copy);
+		mini->env_copy = tmp;
+		free(first);
+		return ;
+		}
 		i++;
 		mini_lst_change(&env, mini->tokens->content);
 		mini->tokens = mini->tokens->next;
@@ -91,18 +137,21 @@ static void	mini_export_bis(t_minijoker *mini)
 	tmp = (char **)malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (env)
-	{
-		s1 = mini_strjoin(env->var, "=");
-		str = mini_strjoin(s1, env->val);
-		tmp[i++] = str;
-		free(s1);
+	{	
+		if (env->var && env->val)
+		{
+			s1 = mini_strjoin(env->var, "=");
+			str = mini_strjoin(s1, env->val);
+			tmp[i++] = str;
+			free(s1);
+		}
 		env = env->next;
 	}
 	tmp[i] = NULL;
 	mini_freetab(mini->env_copy);
 	mini->env_copy = tmp;
 	free(first);
-}
+ }
 
 void	mini_export(t_minijoker *mini)
 {

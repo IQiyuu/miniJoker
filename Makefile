@@ -25,9 +25,9 @@ OBJ = $(SRC:.c=.o)
 
 FS = -fsanitize=address -g
 
-CFLAGS = -Iheaders -I/Users/dgoubin/.brew/opt/readline/include/ -Werror -Wextra -Wall
+CFLAGS = -Iheaders -I/Users/$(USER)/.brew/opt/readline/include/ -Werror -Wextra -Wall
 
-GFLAGS = -Iheaders $(LIB) -lreadline -L/Users/dgoubin/.brew/opt/readline/lib -Werror -Wextra -Wall
+GFLAGS = -Iheaders $(LIB) -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -Werror -Wextra -Wall
 
 all: $(NAME)
 r: re

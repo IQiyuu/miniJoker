@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:34:13 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/08/31 12:56:57 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/05 23:04:07 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	parse_dol(t_token *tokens)
 	char	*tmp;
 	t_token	*nt;
 
-	nt = NULL;
 	while (tokens)
 	{
+		nt = NULL;
 		if (mini_charfind(tokens->content, '$') < mini_strlen(tokens->content))
 		{
 			tmp = tokens->content;
