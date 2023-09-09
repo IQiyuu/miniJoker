@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:37 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/09/05 22:58:50 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/06 20:06:44 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	here_doc(t_minijoker *mini)
 	input = readline("> ");
 	while (mini_strcmp(input, del, 0) != 0)
 	{
+		if (!input)
+		{
+			mini->error = 1;
+			return ;
+		}
 		write(fd, input, mini_strlen(input));
 		write(fd, "\n", 1);
 		free(input);
@@ -37,7 +42,7 @@ void	here_doc(t_minijoker *mini)
 	return ;
 }
 
-static void	open_redirection_bis(t_minijoker *mini, int flag, int fd)
+static void	open_redirection_bis(t_minijoker *mini, int flag)
 {
 	mini->redir_fd = open(mini->tokens->content, flag, 0777);
 	if (mini->redir_fd == -1)
@@ -50,18 +55,15 @@ static void	open_redirection_bis(t_minijoker *mini, int flag, int fd)
 		mini->fdin = dup2(mini->redir_fd, 0);
 	else if (mini_strcmp(mini->tokens->prev->content, "<<", 0) != 0)
 		mini->fdout = dup2(mini->redir_fd, 1);
-	close(fd);
 	mini_tokendelone(&mini->tokens->prev);
 	mini_tokendelone(&mini->tokens);
 }
 
 void	open_redirection(t_minijoker *mini)
 {
-	int	fd;
 	int	flag;
 
 	flag = 0;
-	fd = 0;
 	if (mini_strcmp(mini->tokens->prev->content, "<", 0) == 0)
 		flag = O_RDONLY;
 	else if (mini_strcmp(mini->tokens->prev->content, ">", 0) == 0)
@@ -76,8 +78,8 @@ void	open_redirection(t_minijoker *mini)
 	else
 		return ;
 	if (mini->redir_fd != -1)
-		fd = mini->redir_fd;
-	open_redirection_bis(mini, flag, fd);
+	 	close(mini->redir_fd);
+	open_redirection_bis(mini, flag);
 }
 
 static void	open_redirection_boucle(t_minijoker *mini)

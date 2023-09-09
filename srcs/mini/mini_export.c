@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mini_export.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 14:24:56 by romartin          #+#    #+#             */
-/*   Updated: 2023/09/05 22:01:44 by romartin         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "miniJoker.h"
 
 static void	print_sorted(char **env)
@@ -71,10 +59,6 @@ void	mini_export_bis(t_minijoker *mini)
 
 	i = 0;
 	
-	if (mini->tokens->content[0] == '*')
-	{
-		 
-	}
 	while (mini->env_copy[i])
 		mini_lst_change(&env, mini->env_copy[i++]);
 	while (mini->tokens && !mini_is_intab(mini->sep, mini->tokens->content, 0))
@@ -84,7 +68,7 @@ void	mini_export_bis(t_minijoker *mini)
 			mini_putstr_fd(2, "zsh: no matches found:");
 			mini_putstr_fd(2, mini->tokens->content);
 			mini_putstr_fd(2, "\n");
-			mini->error = INPUT_ERROR;
+			mini->error = 1;
 			first = env;
 			tmp = (char **)malloc(sizeof(char *) * (i + 1));
 			i = 0;
@@ -102,14 +86,14 @@ void	mini_export_bis(t_minijoker *mini)
 		free(first);
 		return ;
 		}
-		if ((mini->tokens->content[0] >= '0' && mini->tokens->content[0] <= '9') || mini_strlen(mini->tokens->content) > mini_charfind(mini->tokens->content, '.') || mini->tokens->content[0] == '=')
+		if ((mini->tokens->content[0] >= '0' && mini->tokens->content[0] <= '9') || mini_strlen(mini->tokens->content) > mini_charfind(mini->tokens->content, '.') || mini->tokens->content[0] == '=' || mini_charfind(mini->tokens->content, '=') > mini_charfind(mini->tokens->content, '-'))
 		{
 			mini_putstr_fd(2, "export: `");
 			mini_putstr_fd(2, mini->tokens->content);
-			mini_putstr_fd(2, "' : not a valid identifier ");
+			mini_putstr_fd(2, "' : not a valid identifier");
 			
 			mini_putstr_fd(2, "\n");
-			mini->error = INPUT_ERROR;
+			mini->error = 1;
 			first = env;
 			tmp = (char **)malloc(sizeof(char *) * (i + 1));
 			i = 0;

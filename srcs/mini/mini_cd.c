@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:50:26 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/08/31 13:08:20 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/06 18:51:36 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static void	error(t_minijoker *mini, char *exec)
 {
 	if (access(exec, X_OK) == 0)
 	{
-		mini->error = EXEC_FILE;
+		mini->error = 1;
 		mini_putstr_fd(2, "cd: ");
 		perror(mini->tokens->content);
 	}
 	else
 	{
-		mini->error = DIR_NOT_FOUND;
+		mini->error = 1;
 		mini_putstr_fd(2, "cd: ");
 		perror(mini->tokens->content);
 	}

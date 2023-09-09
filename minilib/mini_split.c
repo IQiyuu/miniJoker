@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:05:53 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/08/31 12:26:24 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/09 18:10:11 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	stris_encapsuled(char *str)
 	}
 	return (quote == '\0');
 }
-
 static t_token	*assignation(char *str, char **charset)
 {
 	int		ij[2];

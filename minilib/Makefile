@@ -1,6 +1,7 @@
 NAME = minilib.a
 
 FILES = mini_charfind \
+	mini_stradd \
 	mini_cut_to \
 	mini_ft_split \
 	mini_is_intab \

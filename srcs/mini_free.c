@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:53:42 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/09/02 15:06:36 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/08 20:39:53 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,28 @@ char	*freetab(char **tab)
 	return (NULL);
 }
 
-static int	error_test(t_minijoker *mini, int error)
+static int    error_test(t_minijoker *mini, int error)
 {
-	if (mini->tokens && mini->tokens->next)
-	{
-		if (mini->tokens->next->content
-			&& mini_has_alpha(mini->tokens->next->content))
-		{
-			mini_putstr_fd(2, "miniJoker: exit: ");
-			mini_putstr_fd(2, mini->tokens->next->content);
-			mini_putstr_fd(2, ": numeric argument required\n");
-			error = NUM_ARG;
-		}
-		else
-			error = mini_atoi(mini->tokens->next->content);
-	}
-	return (error);
+    if (mini->tokens && mini->tokens->next)
+    {
+        if (mini->tokens->next->next)
+        {
+            mini_putstr_fd(2, "miniJoker: exit: ");
+            mini_putstr_fd(2, "too many arguments\n");
+            error = 1;
+        }
+        else if (mini->tokens->next->content
+            && mini_has_alpha(mini->tokens->next->content))
+        {
+            mini_putstr_fd(2, "miniJoker: exit: ");
+            mini_putstr_fd(2, mini->tokens->next->content);
+            mini_putstr_fd(2, ": numeric argument required\n");
+            error = 255;
+        }
+        else
+            error = mini_atoi(mini->tokens->next->content);
+    }
+    return (error);
 }
 
 void	exit_minijoker(t_minijoker *mini, char *str)

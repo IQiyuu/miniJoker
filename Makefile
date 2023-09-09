@@ -1,4 +1,4 @@
-NAME = minijoker
+NAME = minishell
 
 LIB = minilib.a
 
@@ -35,7 +35,7 @@ r: re
 
 $(NAME): $(LIB) $(OBJ)
 	@printf "> \x1b[32mAll objects compiled\x1b[0m\n"
-	@gcc -o $(NAME) $(OBJ) $(GFLAGS)  -fsanitize=address -g
+	@gcc -o $(NAME) $(OBJ) $(GFLAGS) -g -fsanitize=address
 	@printf "> \x1b[32mExecutable compiled\x1b[0m\n"
 
 .c.o:

@@ -1,13 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   mini_stradd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romartin <romartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 13:59:43 by romartin          #+#    #+#             */
-/*   Updated: 2023/07/01 14:00:10 by romartin         ###   ########.fr       */
+/*   Created: 2023/09/09 17:45:04 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/09/09 17:47:06 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniJoker.h"
+#include "minilib.h"
+
+void    mini_stradd(char *s1, char *toadd)
+{
+    int i;
+    int j;
+
+    j = 0;
+    i = 0;
+    while (s1[i])
+        i++;
+    while (toadd[j])
+        s1[i++] = toadd[j++];
+    s1[i] = '\0';
+}

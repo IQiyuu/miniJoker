@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:15:17 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/08/31 12:09:25 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/06 18:33:50 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int ac, char *av[], char **env)
 	mini_init(&mini, env);
 	if (mini.error != SUCCESS)
 		return (mini.error);
-	print_train();
+	//print_train();
 	signal(SIGINT, &sigint);
 	signal(SIGQUIT, SIG_IGN);
 	listen(&mini);
