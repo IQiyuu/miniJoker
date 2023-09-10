@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:50:26 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/09/06 18:51:36 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:17:11 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	mini_cd(t_minijoker *mini)
 	char	*path;
 	char	*exec;
 
-	mini->error = SUCCESS;
+	mini->error = 0;
 	mini->tokens = mini->tokens->next;
 	if (!mini->tokens
 		|| mini_strcmp(mini->tokens->content, "~", 0) == 0)

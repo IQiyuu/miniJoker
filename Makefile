@@ -4,10 +4,11 @@ LIB = minilib.a
 
 FILES = listener \
 		parser \
-		parser_env \
 		signals \
 		mini_free \
 		exec \
+		parse_env \
+		mini_lens \
 		mini_exec \
 		mini/mini_echo \
 		mini/mini_env \

@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:36:25 by iqiyu             #+#    #+#             */
-/*   Updated: 2023/09/06 19:32:20 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:14:58 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	true_exec(t_minijoker *mini)
 		exec_fils(mini, i, str);
 	wait(&status);
 	if (status == 0)
-		return (SUCCESS);
+		return (0);
 	if (!mini->tokens->content)
 		return (ARG_NUMBER);
 	return (status);

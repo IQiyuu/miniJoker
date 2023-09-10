@@ -6,22 +6,22 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:45:04 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/09/09 17:47:06 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/10 14:47:53 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minilib.h"
 
-void    mini_stradd(char *s1, char *toadd)
+void	mini_stradd(char *s1, char *toadd)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    j = 0;
-    i = 0;
-    while (s1[i])
-        i++;
-    while (toadd[j])
-        s1[i++] = toadd[j++];
-    s1[i] = '\0';
+	j = 0;
+	i = 0;
+	while (s1[i])
+		i++;
+	while (toadd[j])
+		s1[i++] = toadd[j++];
+	s1[i] = '\0';
 }

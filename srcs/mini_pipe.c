@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:29:23 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/08/31 12:38:50 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:17:11 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ int	mini_pipe(t_minijoker *mini)
 	int		status;
 
 	if (pipe(pipefd) == -1)
-		return (SUCCESS);
+		return (0);
 	pid = fork();
 	if (pid < 0)
-		return (SUCCESS);
+		return (0);
 	if (pid == 0)
 	{
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
 		exec_loop(mini);
-		exit(SUCCESS);
+		exit(0);
 	}
 	else
 		exec_pipe(mini, pipefd);
 	wait(&status);
-	return (SUCCESS);
+	return (0);
 }

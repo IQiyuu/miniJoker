@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini_export.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/10 14:59:45 by dgoubin           #+#    #+#             */
+/*   Updated: 2023/09/10 15:55:31 by dgoubin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniJoker.h"
 
 static void	print_sorted(char **env)
@@ -58,7 +70,6 @@ void	mini_export_bis(t_minijoker *mini)
 	char *s1;
 
 	i = 0;
-	
 	while (mini->env_copy[i])
 		mini_lst_change(&env, mini->env_copy[i++]);
 	while (mini->tokens && !mini_is_intab(mini->sep, mini->tokens->content, 0))
@@ -139,7 +150,7 @@ void	mini_export_bis(t_minijoker *mini)
 
 void	mini_export(t_minijoker *mini)
 {
-	mini->error = SUCCESS;
+	mini->error = 0;
 	mini->tokens = mini->tokens->next;
 	if (!mini->tokens || !mini->tokens->content
 		|| mini_is_intab(mini->sep, mini->tokens->content, 1))

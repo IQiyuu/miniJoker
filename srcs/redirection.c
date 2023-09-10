@@ -6,15 +6,14 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:35:37 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/09/06 20:06:44 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:56:50 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniJoker.h"
 
-void	here_doc(t_minijoker *mini)
+void	here_doc(t_minijoker *mini, int fd)
 {
-	int		fd;
 	char	*del;
 	char	*input;
 
@@ -37,7 +36,8 @@ void	here_doc(t_minijoker *mini)
 	close(fd);
 	mini->redir_fd = open(".heredoc", O_RDONLY, 0777);
 	mini->fdin = dup2(mini->redir_fd, 0);
-	mini_tokendelone(&mini->tokens->prev);
+	mini->tokens = mini->tokens->prev;
+	mini_tokendelone(&mini->tokens);
 	mini_tokendelone(&mini->tokens);
 	return ;
 }
@@ -55,13 +55,14 @@ static void	open_redirection_bis(t_minijoker *mini, int flag)
 		mini->fdin = dup2(mini->redir_fd, 0);
 	else if (mini_strcmp(mini->tokens->prev->content, "<<", 0) != 0)
 		mini->fdout = dup2(mini->redir_fd, 1);
-	mini_tokendelone(&mini->tokens->prev);
+	mini->tokens = mini->tokens->prev;
+	mini_tokendelone(&mini->tokens);
 	mini_tokendelone(&mini->tokens);
 }
 
 void	open_redirection(t_minijoker *mini)
 {
-	int	flag;
+	int			flag;
 
 	flag = 0;
 	if (mini_strcmp(mini->tokens->prev->content, "<", 0) == 0)
@@ -72,19 +73,19 @@ void	open_redirection(t_minijoker *mini)
 		flag = O_WRONLY | O_CREAT | O_APPEND;
 	else if (mini_strcmp(mini->tokens->prev->content, "<<", 0) == 0)
 	{
-		here_doc(mini);
+		here_doc(mini, 0);
 		return ;
 	}
 	else
 		return ;
 	if (mini->redir_fd != -1)
-	 	close(mini->redir_fd);
+		close(mini->redir_fd);
 	open_redirection_bis(mini, flag);
 }
 
 static void	open_redirection_boucle(t_minijoker *mini)
 {
-	while (mini->tokens->next)
+	while (mini->tokens && mini->tokens->next)
 	{
 		if (mini_is_intab(mini->sep, mini->tokens->content, 1)
 			&& mini_strcmp(mini->tokens->content, "|", 0) != 0)
@@ -98,12 +99,13 @@ static void	open_redirection_boucle(t_minijoker *mini)
 				break ;
 			}
 			open_redirection(mini);
-			if (mini->error != SUCCESS)
+			if (mini->error != 0)
 				break ;
 		}
 		else
 			mini->tokens = mini->tokens->next;
 	}
+	mini->tokens = mini_tokenfirst(mini->tokens);
 }
 
 void	redirection(t_minijoker *mini)
@@ -114,6 +116,7 @@ void	redirection(t_minijoker *mini)
 	if (!mini->error)
 	{
 		mini->tokens = mini_tokenfirst(mini->tokens);
+		mini->first = mini->tokens;
 		if (mini_tokenfindchar(mini->tokens, '|', 1))
 			mini_pipe(mini);
 		else

@@ -6,7 +6,7 @@
 /*   By: dgoubin <dgoubin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:23:29 by dgoubin           #+#    #+#             */
-/*   Updated: 2023/09/09 17:46:42 by dgoubin          ###   ########.fr       */
+/*   Updated: 2023/09/10 15:14:39 by dgoubin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_env
 enum e_plop	{PARAM,
 	NO_SPACE,
 	OTHER};
-	enum e_errors {SUCCESS,
+	enum e_errors {HERE_DOC,
 	FAILURE,
 	ARG_NUMBER,
 	END,
@@ -48,7 +48,7 @@ enum e_plop	{PARAM,
 	struct s_token * prev;
 } t_token;
 
-void    mini_stradd(char *s1, char *toadd);
+void	mini_stradd(char *s1, char *toadd);
 t_token	*mini_split(char *str, char **charset, int *error);
 int		mini_len(char *str, char **charset, int i);
 char	*ministrdup(char *str, char **charset, int	*i);
@@ -63,7 +63,7 @@ int		mini_lrstrcmp(char *s1, char *s2);
 int		mini_is_intab(char **tab, char *str, int p);
 char	*mini_cut_to(char *str, char c);
 int		mini_charfind(char *str, char c);
-void	mini_freetab(char **tab);
+char	**mini_freetab(char **tab);
 int		mini_strcpy(char *src, char *dst);
 void	mini_putstr_fd(int fd, char *str);
 char	*mini_append_path(char *s1, char *s2);
